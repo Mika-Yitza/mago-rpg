@@ -1,4 +1,4 @@
-const title = 'MAGO rpg'
+let title = 'MAGO rpg title'
 const heroClassStats = [
     {
         name : 'Tester',
@@ -15,15 +15,19 @@ const heroClassStats = [
 ]
 
 window.onload = function() {
+    document.getElementById(`title`).innerHTML = title
+
     const classes = ['Tester', 'Developer']
 
     for(let className of classes){
         document.getElementById(`class`).append(new Option(className, className))
     }
-    document.getElementById(`title`).innerHTML = title
 }
 
 document.getElementById(`create`).onclick = function() {
+    title = 'New title'
+    document.getElementById(`title`).innerHTML = title
+
     const charName = document.getElementById(`name`).value
     const charClass = document.getElementById(`class`).value
 
