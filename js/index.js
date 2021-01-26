@@ -11,23 +11,41 @@ const heroClassStats = [
         health : 8,
         coding : 3,
         hacking : 2
+    },
+    {
+        name : 'Data Analyst',
+        health : 12,
+        coding : 2,
+        hacking : 2
+    }
+]
+
+const opponents = [    
+    {
+        name : 'Robot',
+        attack : 3,
+        firewall : 7
+    },
+    {
+        name : 'A.I.',
+        attack : 3,
+        firewall : 10
     }
 ]
 
 window.onload = function() {
     document.getElementById(`title`).innerHTML = title
 
-    const classes = ['Tester', 'Developer']
+    for(let classObj of heroClassStats){
+        document.getElementById(`class`).append(new Option(classObj.name, classObj.name))
+    }
 
-    for(let className of classes){
-        document.getElementById(`class`).append(new Option(className, className))
+    for(let oppObj of opponents){
+        document.getElementById(`classOpponent`).append(new Option(oppObj.name, oppObj.name))
     }
 }
 
 document.getElementById(`create`).onclick = function() {
-    title = 'New title'
-    document.getElementById(`title`).innerHTML = title
-
     const charName = document.getElementById(`name`).value
     const charClass = document.getElementById(`class`).value
 
@@ -35,6 +53,18 @@ document.getElementById(`create`).onclick = function() {
         if(stats.name == charClass){
             document.getElementById(`panel`).innerHTML = charName + '\n\n Class: ' + charClass +
             '\n HP: ' + stats.health + '\n Coding: ' + stats.coding + '\n Hacking: ' + stats.hacking
+        }
+    }
+}
+
+document.getElementById(`createOpp`).onclick = function() {
+    const oppName = document.getElementById(`opponent`).value
+    const oppClass = document.getElementById(`classOpponent`).value
+
+    for(let stats of opponents){
+        if(stats.name == oppClass){
+            document.getElementById(`opponentPanel`).innerHTML = oppName + '\n\n Class: ' + oppClass +
+            '\n Attack: ' + stats.attack + '\n Firewall: ' + stats.firewall
         }
     }
 }
