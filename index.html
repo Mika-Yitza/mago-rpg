@@ -1,46 +1,74 @@
 <html>
     <head>
         <script type="module" defer src="js/index.js"></script>
+		 <link rel="stylesheet" href="css/index.css">
     </head>
 
     <body>
-        <h1 type='text' id='title'>Title</h1>
 
-        </br>
+		<div class="header">
+			<h1 type='text' id='title'>Title</h1>
+		</div>
+		
+		<div class="bodyPanel" style="overflow-x:auto;">
 
-        <input type='text' id='name' placeholder='Name'></input>
+			<table>
+				<tr>
+					<td>
+					    <input type='text' id='name' placeholder='Name'></input>
+						
+						<select id='class'>
+							<option>Pick your class</option>
+						</select>
 
-        <select id='class'>
-        <option>Pick your class</option>
-        </select>
+						<button id='create'>Create Character</button>
+		
+					</td>
+					<td>
+						<textarea id="panel" rows="8" disabled></textarea>
+					</td>
+				</tr>
+			</table>
 
-        <button id='create'>Create Character</button>
+		</div>
 
-        </br></br>
+		<div class="bodyPanel" style="overflow-x:auto;">
 
-        <textarea id="panel" rows="8" disabled></textarea>
+			<table>
+				<tr>
+					<td>
+						<input type='text' id='opponent' placeholder='Opponent'></input>
+						
+						<select id='classOpponent'>
+							<option>Pick class</option>
+						</select>
 
-        </br></br>
+						<button id='createOpp'>Create opponent</button>
+		
+					</td>
+					<td>
+						<textarea id="opponentPanel" rows="8" disabled></textarea>
+					</td>
+				</tr>
+			</table>
 
-        <input type='text' id='opponent' placeholder='Opponent'></input>
+		</div>
+		
+		<div class="bodyPanel" style="overflow-x:auto;">
 
-        <select id='classOpponent'>
-        <option>Pick class</option>
-        </select>
+			<table>
+				<tr>
+					<td>
+						<button id='fight'>Fight</button>
 
-        <button id='createOpp'>Create opponent</button>
+					</td>
+					<td>
+						<textarea id="combat" rows="8" cols="100" disabled></textarea>
+					</td>
+				</tr>
+			</table>
 
-        </br></br>
-
-        <textarea id="opponentPanel" rows="8" disabled></textarea>
-
-        </br></br>
-
-        <button id='fight'>Fight</button>
-
-        </br></br>
-
-        <textarea id="combat" rows="8" cols="100" disabled></textarea>
+		</div>
 
     </body>
 </html>
