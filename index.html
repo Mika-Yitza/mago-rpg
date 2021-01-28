@@ -25,7 +25,9 @@
 		
 					</td>
 					<td>
-						<textarea id="panel" rows="8" disabled></textarea>
+							<textarea id="panel" rows="8" disabled></textarea>
+				
+							<img id="heroImg" src="assets/default.png" class="img-right"></img>
 					</td>
 				</tr>
 			</table>
@@ -48,13 +50,55 @@
 					</td>
 					<td>
 						<textarea id="opponentPanel" rows="8" disabled></textarea>
+				
+						<img id="oppImg" src="assets/default.png" class="img-right"></img>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<div class="bodyPanel" style="overflow-x:auto;">
+
+			<table>
+				<tr>
+					<td>
+						<button id='fight'>Fight</button>
+
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		</br>
+
+		<div id="fight-details" class="bodyPanel" style="overflow-x:auto;visibility: hidden;">
+
+			<table>
+				<tr>
+					<td>
+						<img id="heroImg-fight" src="assets/default.png" class="img-left" alt="10"></img>
+						<span id="heroName-fight" style="margin-left: 2%;">Name</span>
+						<hr id="heroHp" class="hp-right"></hr>
+						<label id="heroLabelHp" for="heroHp" class="labelHp-right">10</label>
+					</td>
+					<td>				
+						<img id="oppImg-fight" src="assets/default.png" class="img-right"></img>
+						<span id="oppName-fight">Name</span>
+						<hr id="oppHp" class="hp-left"></hr>
+						<label id="oppLabelHp" for="oppHp" class="labelHp-left">10</label>
+						<hr id="oppFw" class="firewall-left"></hr>
+						<label id="oppLabelFw" for="oppFw" class="labelFw-left">10</label>
 					</td>
 				</tr>
 			</table>
 
 		</div>
 		
-		<div class="bodyPanel" style="overflow-x:auto;">
+		<div id="fight-panel" class="bodyPanel" style="overflow-x:auto;visibility: hidden;">
 
 			<table>
 				<tr>

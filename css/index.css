@@ -9,6 +9,26 @@ body {
 	width: 60%;
 }
 
+@media only screen and (max-width: 1000px) {
+	body {
+	   margin: 0;
+	   padding: 0;
+	}
+	.bodyPanel {
+	   width: 90%;
+	}
+ }
+
+@media only screen and (max-width: 700px) {
+	body {
+	   margin: 0;
+	   padding: 0;
+	}
+	.bodyPanel {
+	   width: 98%;
+	}
+ }
+
 .header{
   color: rgb(112, 118, 199, 0.7);
   text-align: center;
@@ -50,8 +70,68 @@ button {
 
 textarea {
 	border-bottom: 3px;
-	display: block;
+	float: left;
 	height: 100%;
-	width: 100%;
+	width: 65%;
 	color: black;
+}
+
+.img-right {
+	float: right;
+	border-bottom: 3px;
+	height: 125px;
+	width: 33%;
+}
+
+.img-left {
+	float: left;
+	border-bottom: 3px;
+	height: 125px;
+	width: 33%;
+}
+
+.hp-right {
+	background-color: red;
+	float: right;
+	height: 20px;
+	width: 35%;	
+	margin-top: 5%;
+	margin-right: 20%;
+}
+
+.hp-left {
+	background-color: red;
+	float: left;
+	height: 20px;
+	width: 35%;
+	margin-top: 5%;
+}
+
+.firewall-left {
+	background-color: green;
+	float: left;
+	height: 20px;
+	width: 35%;
+	margin-top: 1%;
+}
+
+.labelHp-right {
+	float: right;
+	height: 20px;
+	margin-top: 5%;
+	margin-right: 2%;
+}
+
+.labelHp-left {
+	float: left;
+	height: 20px;
+	margin-top: 5%;
+	margin-left: 2%;
+}
+
+.labelFw-left {
+	float: left;
+	height: 20px;
+	margin-top: 1%;
+	margin-left: 2%;
 }
