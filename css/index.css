@@ -76,6 +76,10 @@ textarea {
 	color: black;
 }
 
+.fight-panel{
+	width: 100%;
+}
+
 .img-right {
 	float: right;
 	border-bottom: 3px;
@@ -105,6 +109,7 @@ textarea {
 	height: 20px;
 	width: 35%;
 	margin-top: 5%;
+	margin-left: 10%;	
 }
 
 .firewall-left {
@@ -113,6 +118,7 @@ textarea {
 	height: 20px;
 	width: 35%;
 	margin-top: 1%;
+	margin-left: 10%;	
 }
 
 .labelHp-right {
@@ -134,4 +140,14 @@ textarea {
 	height: 20px;
 	margin-top: 1%;
 	margin-left: 2%;
+}
+
+.label-right{
+	float: right;	
+	margin-right: 20%;
+}
+
+.label-left{
+	float: left;
+	margin-left: 10%;	
 }

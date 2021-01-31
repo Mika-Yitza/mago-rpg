@@ -105,4 +105,5 @@ document.getElementById(`fight`).onclick = function() {
     }
 
     document.getElementById(`fight-details`).style.visibility = "visible"
+    document.getElementById(`fight-panel`).style.visibility = "visible"
 }
