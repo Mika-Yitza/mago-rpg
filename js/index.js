@@ -94,6 +94,9 @@ document.getElementById(`fight`).onclick = function() {
     for(let stats of heroClassStats){
         if(stats.name == charClass){
             document.getElementById(`heroLabelHp`).innerHTML = stats.health
+            document.getElementById(`heroStrength-fight`).innerHTML = stats.strength
+            document.getElementById(`heroCoding-fight`).innerHTML = stats.coding
+            document.getElementById(`heroImg-fight`).alt = stats.health
         }
     }
 
@@ -101,9 +104,19 @@ document.getElementById(`fight`).onclick = function() {
         if(stats.name == oppClass){
             document.getElementById(`oppLabelHp`).innerHTML = stats.health
             document.getElementById(`oppLabelFw`).innerHTML = stats.firewall
+            document.getElementById(`oppStrength-fight`).innerHTML = stats.strength
+            document.getElementById(`oppImg-fight`).alt = stats.health + "&" + stats.firewall
         }
     }
 
     document.getElementById(`fight-details`).style.visibility = "visible"
     document.getElementById(`fight-panel`).style.visibility = "visible"
+}
+
+document.getElementById(`action-hack`).onclick = function() {
+
+}
+
+document.getElementById(`action-punch`).onclick = function() {
+    
 }
