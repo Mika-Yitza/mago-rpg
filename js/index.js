@@ -114,9 +114,70 @@ document.getElementById(`fight`).onclick = function() {
 }
 
 document.getElementById(`action-hack`).onclick = function() {
+    const charName = document.getElementById(`heroName-fight`).innerHTML
+    const oppName = document.getElementById(`oppName-fight`).innerHTML
+    const charHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
+    const oppFw = parseInt(document.getElementById(`oppLabelFw`).innerHTML)
+    const charCoding = parseInt(document.getElementById(`heroCoding-fight`).innerHTML)
+    const oppStrength = parseInt(document.getElementById(`oppStrength-fight`).innerHTML)
+    const charHpTotal = parseInt(document.getElementById(`heroImg-fight`).alt)
+    const oppFwTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[1])
 
+    const newHeroHp = charHp - oppStrength
+    const newOppFw = oppFw - charCoding
+
+    document.getElementById(`combat`).innerHTML += '\n' + charName + ' used his hacking skills to reduce ' + oppName + '\’(s) firewall by ' + charCoding
+    document.getElementById(`combat`).innerHTML += '\n' + oppName + ' - Remaining firewall : ' + newOppFw
+
+    if(newOppFw < 1){
+        document.getElementById(`combat`).innerHTML += '\n' + 'Victory!'
+    }
+    else{
+        document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + oppStrength
+        document.getElementById(`combat`).innerHTML += '\n' + charName + ' - Remaining health : ' + newHeroHp
+        if(newHeroHp < 1){
+            document.getElementById(`combat`).innerHTML += '\n' + 'Game Over!'
+        }
+        else{
+            document.getElementById(`heroLabelHp`).innerHTML = newHeroHp
+            document.getElementById(`oppLabelFw`).innerHTML = newOppFw
+            document.getElementById(`heroHp`).style.width = (newHeroHp / charHpTotal * 60) + "%"
+            document.getElementById(`oppFw`).style.width = (newOppFw / oppFwTotal * 60) + "%"
+        }
+    }
 }
 
 document.getElementById(`action-punch`).onclick = function() {
     
+    const charName = document.getElementById(`heroName-fight`).innerHTML
+    const oppName = document.getElementById(`oppName-fight`).innerHTML
+    const charHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
+    const oppHp = parseInt(document.getElementById(`oppLabelHp`).innerHTML)
+    const charStrength = parseInt(document.getElementById(`heroStrength-fight`).innerHTML)
+    const oppStrength = parseInt(document.getElementById(`oppStrength-fight`).innerHTML)
+    const charHpTotal = parseInt(document.getElementById(`heroImg-fight`).alt)
+    const oppHpTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[0])
+
+    const newHeroHp = charHp - oppStrength
+    const newOppHp = oppHp - charStrength
+
+    document.getElementById(`combat`).innerHTML += '\n' + charName + ' used his mighty punch to reduce ' + oppName + '\’(s) health by ' + charStrength
+    document.getElementById(`combat`).innerHTML += '\n' + oppName + ' - Remaining health : ' + newOppHp
+
+    if(newOppHp < 1){
+        document.getElementById(`combat`).innerHTML += '\n' + 'Victory!'
+    }
+    else{
+        document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + oppStrength
+        document.getElementById(`combat`).innerHTML += '\n' + charName + ' - Remaining health : ' + newHeroHp
+        if(newHeroHp < 1){
+            document.getElementById(`combat`).innerHTML += '\n' + 'Game Over!'
+        }
+        else{
+            document.getElementById(`heroLabelHp`).innerHTML = newHeroHp
+            document.getElementById(`oppLabelHp`).innerHTML = newOppHp
+            document.getElementById(`heroHp`).style.width = (newHeroHp / charHpTotal * 60) + "%"
+            document.getElementById(`oppHp`).style.width = (newOppHp / oppHpTotal * 60) + "%"
+        }
+    }
 }

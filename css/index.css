@@ -98,7 +98,7 @@ textarea {
 	background-color: red;
 	float: right;
 	height: 20px;
-	width: 35%;	
+	width: 60%;	
 	margin-top: 5%;
 	margin-right: 20%;
 }
@@ -107,7 +107,7 @@ textarea {
 	background-color: red;
 	float: left;
 	height: 20px;
-	width: 35%;
+	width: 60%;
 	margin-top: 5%;
 	margin-left: 10%;	
 }
@@ -116,8 +116,7 @@ textarea {
 	background-color: green;
 	float: left;
 	height: 20px;
-	width: 35%;
-	margin-top: 1%;
+	width: 60%;
 	margin-left: 10%;	
 }
 
