@@ -56,26 +56,38 @@ window.onload = function() {
 
 document.getElementById(`create`).onclick = function() {
     const charName = document.getElementById(`name`).value
-    const charClass = document.getElementById(`class`).value
 
-    for(let stats of heroClassStats){
-        if(stats.name == charClass){
-            document.getElementById(`panel`).innerHTML = charName + '\n\n Class: ' + charClass +
-            '\n HP: ' + stats.health + '\n Coding: ' + stats.coding + '\n Strength: ' + stats.strength
-            document.getElementById(`heroImg`).src = "assets/" + stats.img
+    if (charName === '') {
+        alert('You need to name your hero before you can create it')
+    }
+    else {
+        const charClass = document.getElementById(`class`).value
+
+        for(let stats of heroClassStats){
+            if(stats.name == charClass){
+                document.getElementById(`panel`).innerHTML = charName + '\n\n Class: ' + charClass +
+                '\n HP: ' + stats.health + '\n Coding: ' + stats.coding + '\n Strength: ' + stats.strength
+                document.getElementById(`heroImg`).src = "assets/" + stats.img
+            }
         }
     }
 }
 
 document.getElementById(`createOpp`).onclick = function() {
     const oppName = document.getElementById(`opponent`).value
-    const oppClass = document.getElementById(`classOpponent`).value
-
-    for(let stats of opponents){
-        if(stats.name == oppClass){
-            document.getElementById(`opponentPanel`).innerHTML = oppName + '\n\n Class: ' + oppClass +
-            '\n HP: ' + stats.health + '\n Firewall: ' + stats.firewall + '\n Strength: ' + stats.strength 
-            document.getElementById(`oppImg`).src = "assets/" + stats.img
+    
+    if (oppName === '') {
+        alert('You need to name your opponent before you can create it')
+    }
+    else {
+        const oppClass = document.getElementById(`classOpponent`).value
+        
+        for(let stats of opponents){
+            if(stats.name == oppClass){
+                document.getElementById(`opponentPanel`).innerHTML = oppName + '\n\n Class: ' + oppClass +
+                '\n HP: ' + stats.health + '\n Firewall: ' + stats.firewall + '\n Strength: ' + stats.strength 
+                document.getElementById(`oppImg`).src = "assets/" + stats.img
+            }
         }
     }
 }
