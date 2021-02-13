@@ -1,4 +1,4 @@
-import * as dbHelp from '/js/db-helper.js'
+import * as dbHelp from '../js/db-helper.js'
 
 let title = 'Home Page'
 let appbaseRef
