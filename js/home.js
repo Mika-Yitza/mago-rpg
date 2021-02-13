@@ -1,4 +1,7 @@
+import * as dbHelp from '/js/db-helper.js'
+
 let title = 'Home Page'
+let appbaseRef
 const heroClassStats = [
     {
         name : 'Tester',
@@ -30,9 +33,7 @@ window.onload = function() {
         document.getElementById(`class`).append(new Option(classObj.name, classObj.name))
     }
 
-    for(let oppObj of opponents){
-        document.getElementById(`classOpponent`).append(new Option(oppObj.name, oppObj.name))
-    }
+    appbaseRef = dbHelp.auth()
 }
 
 document.getElementById(`create`).onclick = function() {
@@ -41,13 +42,22 @@ document.getElementById(`create`).onclick = function() {
     if (charName === '') {
         alert('You need to name your hero before you can create it')
     }
-    else {
-        const charClass = document.getElementById(`class`).value
+    else{  
+        const charClass = document.getElementById(`class`).value    
+        let userData
 
         for(let stats of heroClassStats){
             if(stats.name == charClass){
-                document.getElementById(`panel`).innerHTML = charName + '\n\n Class: ' + charClass +
-                '\n HP: ' + stats.health + '\n Coding: ' + stats.coding + '\n Strength: ' + stats.strength
+                userData = {
+                    name: charName,
+                    class: charClass,
+                    health: stats.health,
+                    coding: stats.coding,
+                    strength: stats.strength,
+                    level: 1,
+                    xp: 0
+                }
+                dbHelp.uniqueAdd(appbaseRef, charName, userData)
             }
         }
     }
