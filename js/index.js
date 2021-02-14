@@ -1,4 +1,7 @@
+import * as dbHelp from '../js/db-helper.js'
+
 let title = 'MAGO rpg title'
+let appbaseRef
 let round
 let isGameOver
 const gameOverMessage = 'This game has finished.'
@@ -66,6 +69,12 @@ window.onload = function() {
     for(let oppObj of opponents){
         document.getElementById(`classOpponent`).append(new Option(oppObj.name, oppObj.name))
     }
+
+    const userId = window.location.href.split("id=")[1]
+
+    appbaseRef = dbHelp.auth()
+    dbHelp.search(appbaseRef, userId)
+
 }
 
 document.getElementById(`create`).onclick = function() {

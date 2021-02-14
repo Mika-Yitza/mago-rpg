@@ -14,20 +14,60 @@
 		
 		<div class="bodyPanel" style="overflow-x:auto;">
 
-			<table>
-				<tr>
-					<td>
-					    <input type='text' id='name' placeholder='Name'></input>
-						
-						<select id='class'>
-							<option>Pick your class</option>
-						</select>
+			<div class="tabbed">
+				<input name="tabbed" id="tabbed1" type="radio" checked>
+	
+				<section>
+					<h1>
+						<label for="tabbed1">Log In</label>
+					</h1>
+					<div>
+						<table>
+							<tr>
+								<td>
+									<input type='text' id='login-name' placeholder='Name'></input>
+									
+									<input type='password' id='login-pass' placeholder='Password'></input>
 
-						<button id='create'>Create Character</button>
-		
-					</td>
-				</tr>
-			</table>
+									<a id='passViewLogin' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;">show</a>
+			
+									<button id='play'>Play</button>
+					
+								</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+	
+				<input name="tabbed" id="tabbed2" type="radio">
+	
+				<section>
+					<h1>
+						<label for="tabbed2"> Register</label>
+					</h1>
+					<div>
+						<table>
+							<tr>
+								<td>
+									<input type='text' id='register-name' placeholder='Name'></input>
+
+									<input type='password' id='register-pass' placeholder='Password'></input>
+
+									<a id='passViewRegister' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;">show</a>
+									
+									<select id='class'>
+										<option>Pick your class</option>
+									</select>
+			
+									<button id='create'>Create Character</button>
+					
+								</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+	
+			  </div>
 
 		</div>
     </body>
