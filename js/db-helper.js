@@ -16,7 +16,7 @@ export function add(appbaseRef, char, id){
     })
     .then(function(response) {
         alert('Your hero was successfully')
-        window.open("index.html?id=" + id, "_self")
+        window.open("fight.html?id=" + id, "_self")
     })
     .catch(function(error) {
         console.log(error)
@@ -62,7 +62,7 @@ export async function login(appbaseRef, name, password){
         else{
             if(response.hits.hits[0]._source.password == password){
                 const heroId = response.hits.hits[0]._id
-                window.open("index.html?id=" + heroId, "_self")
+                window.open("fight.html?id=" + heroId, "_self")
             }
             else{
                 alert(`The password is incorrect.`)

@@ -1,33 +1,9 @@
-import * as dbHelp from '../js/db-helper.js'
+import * as dbHelp from './db-helper.js'
 
-let title = 'MAGO rpg title'
 let appbaseRef
 let round
 let isGameOver
 const gameOverMessage = 'This game has finished.'
-const heroClassStats = [
-    {
-        name : 'Tester',
-        health : 10,
-        coding : 1,
-        strength : 3,
-        img : 'tester.png'
-    },
-    {
-        name : 'Developer',
-        health : 8,
-        coding : 3,
-        strength : 1,
-        img : 'dev.png'
-    },
-    {
-        name : 'Data Analyst',
-        health : 12,
-        coding : 2,
-        strength : 2,
-        img : 'da.png'
-    }
-]
 
 const opponents = [    
     {
@@ -60,11 +36,6 @@ function victoryUpdate(stat) {
 
 
 window.onload = function() {
-    document.getElementById(`title`).innerHTML = title
-
-    for(let classObj of heroClassStats){
-        document.getElementById(`class`).append(new Option(classObj.name, classObj.name))
-    }
 
     for(let oppObj of opponents){
         document.getElementById(`classOpponent`).append(new Option(oppObj.name, oppObj.name))
@@ -75,25 +46,6 @@ window.onload = function() {
     appbaseRef = dbHelp.auth()
     dbHelp.search(appbaseRef, userId)
 
-}
-
-document.getElementById(`create`).onclick = function() {
-    const charName = document.getElementById(`name`).value
-
-    if (charName === '') {
-        alert('You need to name your hero before you can create it')
-    }
-    else {
-        const charClass = document.getElementById(`class`).value
-
-        for(let stats of heroClassStats){
-            if(stats.name == charClass){
-                document.getElementById(`panel`).innerHTML = charName + '\n\n Class: ' + charClass +
-                '\n HP: ' + stats.health + '\n Coding: ' + stats.coding + '\n Strength: ' + stats.strength
-                document.getElementById(`heroImg`).src = "assets/" + stats.img
-            }
-        }
-    }
 }
 
 document.getElementById(`createOpp`).onclick = function() {
@@ -117,15 +69,14 @@ document.getElementById(`createOpp`).onclick = function() {
 
 document.getElementById(`fight`).onclick = function() {
     round = 1
-    const charPannel = document.getElementById(`panel`).value
     const oppPannel = document.getElementById(`opponentPanel`).value
 
-    if (charPannel === '' || oppPannel === '') {
-        alert('You need to create the hero and the opponent before you can fight')
+    if (oppPannel === '') {
+        alert('You need to create the opponent before you can fight')
     }
     else {
-        const charName = document.getElementById(`name`).value
-        const charClass = document.getElementById(`class`).value
+        const charName = sessionStorage.getItem('name')
+        const charClass = sessionStorage.getItem('class')
         const oppName = document.getElementById(`opponent`).value
         const oppClass = document.getElementById(`classOpponent`).value
     
@@ -133,17 +84,14 @@ document.getElementById(`fight`).onclick = function() {
     
         document.getElementById(`heroName-fight`).innerHTML = charName
         document.getElementById(`oppName-fight`).innerHTML = oppName
-        document.getElementById(`heroImg-fight`).src = document.getElementById(`heroImg`).src
+        document.getElementById(`heroImg-fight`).src = "assets/" + charClass + ".png"
         document.getElementById(`oppImg-fight`).src = document.getElementById(`oppImg`).src
     
-        for(let stats of heroClassStats){
-            if(stats.name == charClass){
-                document.getElementById(`heroLabelHp`).innerHTML = stats.health
-                document.getElementById(`heroStrength-fight`).innerHTML = stats.strength
-                document.getElementById(`heroCoding-fight`).innerHTML = stats.coding
-                document.getElementById(`heroImg-fight`).alt = stats.health
-            }
-        }
+   
+        document.getElementById(`heroLabelHp`).innerHTML = sessionStorage.getItem('health')
+        document.getElementById(`heroStrength-fight`).innerHTML = sessionStorage.getItem('strength')
+        document.getElementById(`heroCoding-fight`).innerHTML = sessionStorage.getItem('coding')
+        document.getElementById(`heroImg-fight`).alt = sessionStorage.getItem('health')
     
         for(let stats of opponents){
             if(stats.name == oppClass){
@@ -226,6 +174,7 @@ document.getElementById(`action-hack`).onclick = function() {
                 document.getElementById(`oppFw`).style.width = (newOppFw / oppFwTotal * 60) + "%"
             }
         }
+        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight 
     }
 }
 
@@ -275,7 +224,6 @@ document.getElementById(`action-punch`).onclick = function() {
     
         if(newOppHp < 1){
             victoryUpdate('Hp')
-
         }
         else{
             document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + heroDmgTaken + oppCriticalText
@@ -295,5 +243,6 @@ document.getElementById(`action-punch`).onclick = function() {
                 document.getElementById(`oppHp`).style.width = (newOppHp / oppHpTotal * 60) + "%"
             }
         }
+        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight 
     }
 }

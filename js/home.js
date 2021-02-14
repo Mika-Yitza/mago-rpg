@@ -58,7 +58,7 @@ document.getElementById(`create`).onclick = function() {
             else{
                 let userData
 
-                const id = 'test2'
+                const id = Math.random().toString(36).substr(2, 5) + Date.now()
 
                 for(let stats of heroClassStats){
                     if(stats.name == charClass){
