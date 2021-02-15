@@ -5,20 +5,20 @@ let round
 let isGameOver
 const gameOverMessage = 'This game has finished.'
 
-const opponents = [    
+const opponents = [
     {
-        name : 'Robot',
-        strength : 3,
-        firewall : 8,
-        health : 10,
-        img : 'robot.png'
+        name: 'Robot',
+        strength: 3,
+        firewall: 8,
+        health: 10,
+        img: 'robot.png'
     },
     {
-        name : 'A.I.',
-        strength : 2,
-        firewall : 10,
-        health : 8,
-        img : 'ai.png'
+        name: 'A.I.',
+        strength: 2,
+        firewall: 10,
+        health: 8,
+        img: 'ai.png'
     }
 ]
 
@@ -27,17 +27,54 @@ function roundCount() {
     round++
 }
 
-function victoryUpdate(stat) { 
+function victory(stat) {
     document.getElementById(`combat`).innerHTML += '\n' + 'Victory!'
     document.getElementById(`oppLabel` + stat).innerHTML = 0
     document.getElementById(`opp` + stat).style.width = 0
     isGameOver = true
 }
 
+function gameOver(stat, newValue, total) {
+    document.getElementById(`combat`).innerHTML += '\n' + 'Game Over!'
+    document.getElementById(`heroLabel` + stat).innerHTML = 0
+    document.getElementById(`hero` + stat).style.width = 0
+    document.getElementById(`oppLabel` + stat).innerHTML = newValue
+    document.getElementById(`opp` + stat).style.width = (newValue / total * 60) + "%"
+    isGameOver = true
+}
 
-window.onload = function() {
+function gameOn(stat, newValue, total, newHeroHp, charHpTotal) {
+    document.getElementById(`heroLabelHp`).innerHTML = newHeroHp
+    document.getElementById(`oppLabel` + stat).innerHTML = newValue
+    document.getElementById(`heroHp`).style.width = (newHeroHp / charHpTotal * 60) + "%"
+    document.getElementById(`opp` + stat).style.width = (newValue / total * 60) + "%"
+}
 
-    for(let oppObj of opponents){
+function calculateNewHeroHp(oppStrength, charHp){
+    let heroDmgTaken
+    let oppCriticalText
+
+    if ((Math.random() * 100) > 30) {
+        heroDmgTaken = oppStrength
+        oppCriticalText = ""
+    }
+    else {
+        heroDmgTaken = oppStrength + 1
+        oppCriticalText = " (Critical Hit)"
+    }
+    const newHeroHp = charHp - heroDmgTaken
+
+    const returnedItems={
+        oppCriticalText: oppCriticalText,
+        newHeroHp: newHeroHp,
+        heroDmgTaken: heroDmgTaken
+    }
+    return returnedItems    
+} 
+
+window.onload = function () {
+
+    for (let oppObj of opponents) {
         document.getElementById(`classOpponent`).append(new Option(oppObj.name, oppObj.name))
     }
 
@@ -48,26 +85,26 @@ window.onload = function() {
 
 }
 
-document.getElementById(`createOpp`).onclick = function() {
+document.getElementById(`createOpp`).onclick = function () {
     const oppName = document.getElementById(`opponent`).value
-    
+
     if (oppName === '') {
         alert('You need to name your opponent before you can create it')
     }
     else {
         const oppClass = document.getElementById(`classOpponent`).value
-        
-        for(let stats of opponents){
-            if(stats.name == oppClass){
+
+        for (let stats of opponents) {
+            if (stats.name == oppClass) {
                 document.getElementById(`opponentPanel`).innerHTML = oppName + '\n\n Class: ' + oppClass +
-                '\n HP: ' + stats.health + '\n Firewall: ' + stats.firewall + '\n Strength: ' + stats.strength 
+                    '\n HP: ' + stats.health + '\n Firewall: ' + stats.firewall + '\n Strength: ' + stats.strength
                 document.getElementById(`oppImg`).src = "assets/" + stats.img
             }
         }
     }
 }
 
-document.getElementById(`fight`).onclick = function() {
+document.getElementById(`fight`).onclick = function () {
     round = 1
     const oppPannel = document.getElementById(`opponentPanel`).value
 
@@ -79,22 +116,22 @@ document.getElementById(`fight`).onclick = function() {
         const charClass = sessionStorage.getItem('class')
         const oppName = document.getElementById(`opponent`).value
         const oppClass = document.getElementById(`classOpponent`).value
-    
+
         document.getElementById(`combat`).innerHTML = charName + ' is ready to fight ' + oppName
-    
+
         document.getElementById(`heroName-fight`).innerHTML = charName
         document.getElementById(`oppName-fight`).innerHTML = oppName
         document.getElementById(`heroImg-fight`).src = "assets/" + charClass + ".png"
         document.getElementById(`oppImg-fight`).src = document.getElementById(`oppImg`).src
-    
-   
+
+
         document.getElementById(`heroLabelHp`).innerHTML = sessionStorage.getItem('health')
         document.getElementById(`heroStrength-fight`).innerHTML = sessionStorage.getItem('strength')
         document.getElementById(`heroCoding-fight`).innerHTML = sessionStorage.getItem('coding')
         document.getElementById(`heroImg-fight`).alt = sessionStorage.getItem('health')
-    
-        for(let stats of opponents){
-            if(stats.name == oppClass){
+
+        for (let stats of opponents) {
+            if (stats.name == oppClass) {
                 document.getElementById(`oppLabelHp`).innerHTML = stats.health
                 document.getElementById(`oppLabelFw`).innerHTML = stats.firewall
                 document.getElementById(`oppStrength-fight`).innerHTML = stats.strength
@@ -110,10 +147,10 @@ document.getElementById(`fight`).onclick = function() {
     }
 }
 
-document.getElementById(`action-hack`).onclick = function() {
+document.getElementById(`action-hack`).onclick = function () {
     if (isGameOver) {
         alert(gameOverMessage)
-    } 
+    }
     else {
         roundCount()
 
@@ -128,61 +165,44 @@ document.getElementById(`action-hack`).onclick = function() {
 
         let oppDmgTaken
         let heroCriticalText
-        if((Math.random()*100)>50){
+        if ((Math.random() * 100) > 50) {
             oppDmgTaken = charCoding
             heroCriticalText = ""
         }
-        else{
+        else {
             oppDmgTaken = charCoding + 1
             heroCriticalText = " (Critical Hit)"
         }
         const newOppFw = oppFw - oppDmgTaken
 
-        let heroDmgTaken
-        let oppCriticalText
-        if((Math.random()*100)>30){
-            heroDmgTaken = oppStrength
-            oppCriticalText = ""
-        }
-        else{
-            heroDmgTaken = oppStrength + 1
-            oppCriticalText = " (Critical Hit)"
-        }
-        const newHeroHp = charHp - heroDmgTaken
-    
+        const newValues = calculateNewHeroHp(oppStrength, charHp)
+        const newHeroHp = newValues.newHeroHp
+
         document.getElementById(`combat`).innerHTML += '\n' + charName + ' used his hacking skills to reduce ' + oppName + '\’(s) firewall by ' + oppDmgTaken + heroCriticalText
         document.getElementById(`combat`).innerHTML += '\n' + oppName + ' - Remaining firewall : ' + newOppFw
-    
-        if(newOppFw < 1){
-            victoryUpdate('Fw')
+
+        if (newOppFw < 1) {
+            victory('Fw')
         }
-        else{
-            document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + heroDmgTaken + oppCriticalText
+        else {
+            document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + newValues.heroDmgTaken + newValues.oppCriticalText
             document.getElementById(`combat`).innerHTML += '\n' + charName + ' - Remaining health : ' + newHeroHp
-            if(newHeroHp < 1){
-                document.getElementById(`combat`).innerHTML += '\n' + 'Game Over!'
-                document.getElementById(`heroLabelHp`).innerHTML = 0
-                document.getElementById(`heroHp`).style.width = 0
-                document.getElementById(`oppLabelFw`).innerHTML = newOppFw
-                document.getElementById(`oppFw`).style.width = (newOppFw / oppFwTotal * 60) + "%"
-                isGameOver = true
+            if (newHeroHp < 1) {
+                gameOver('Fw', newOppFw, oppFwTotal)
             }
-            else{
-                document.getElementById(`heroLabelHp`).innerHTML = newHeroHp
-                document.getElementById(`oppLabelFw`).innerHTML = newOppFw
-                document.getElementById(`heroHp`).style.width = (newHeroHp / charHpTotal * 60) + "%"
-                document.getElementById(`oppFw`).style.width = (newOppFw / oppFwTotal * 60) + "%"
+            else {
+                gameOn('Fw', newOppFw, oppFwTotal, newHeroHp, charHpTotal)
             }
         }
-        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight 
+        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight
     }
 }
 
-document.getElementById(`action-punch`).onclick = function() {
+document.getElementById(`action-punch`).onclick = function () {
 
     if (isGameOver) {
         alert(gameOverMessage)
-    } 
+    }
     else {
         roundCount()
 
@@ -197,52 +217,35 @@ document.getElementById(`action-punch`).onclick = function() {
 
         let oppDmgTaken
         let heroCriticalText
-        if((Math.random()*100)>50){
+        if ((Math.random() * 100) > 50) {
             oppDmgTaken = charStrength
             heroCriticalText = ""
         }
-        else{
+        else {
             oppDmgTaken = charStrength + 1
             heroCriticalText = " (Critical Hit)"
         }
         const newOppHp = oppHp - oppDmgTaken
 
-        let heroDmgTaken
-        let oppCriticalText
-        if((Math.random()*100)>30){
-            heroDmgTaken = oppStrength
-            oppCriticalText = ""
-        }
-        else{
-            heroDmgTaken = oppStrength + 1
-            oppCriticalText = " (Critical Hit)"
-        }
-        const newHeroHp = charHp - heroDmgTaken
-    
+        const newValues = calculateNewHeroHp(oppStrength, charHp)
+        const newHeroHp = newValues.newHeroHp
+
         document.getElementById(`combat`).innerHTML += '\n' + charName + ' used his mighty punch to reduce ' + oppName + '\’(s) health by ' + oppDmgTaken + heroCriticalText
         document.getElementById(`combat`).innerHTML += '\n' + oppName + ' - Remaining health : ' + newOppHp
-    
-        if(newOppHp < 1){
-            victoryUpdate('Hp')
+
+        if (newOppHp < 1) {
+            victory('Hp')
         }
-        else{
-            document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + heroDmgTaken + oppCriticalText
+        else {
+            document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + newValues.heroDmgTaken + newValues.oppCriticalText
             document.getElementById(`combat`).innerHTML += '\n' + charName + ' - Remaining health : ' + newHeroHp
-            if(newHeroHp < 1){
-                document.getElementById(`combat`).innerHTML += '\n' + 'Game Over!'
-                document.getElementById(`heroLabelHp`).innerHTML = 0
-                document.getElementById(`heroHp`).style.width = 0
-                document.getElementById(`oppLabelHp`).innerHTML = newOppHp
-                document.getElementById(`oppHp`).style.width = (newOppHp / oppHpTotal * 60) + "%"
-                isGameOver = true
+            if (newHeroHp < 1) {
+                gameOver('Hp', newOppHp, oppHpTotal)
             }
-            else{
-                document.getElementById(`heroLabelHp`).innerHTML = newHeroHp
-                document.getElementById(`oppLabelHp`).innerHTML = newOppHp
-                document.getElementById(`heroHp`).style.width = (newHeroHp / charHpTotal * 60) + "%"
-                document.getElementById(`oppHp`).style.width = (newOppHp / oppHpTotal * 60) + "%"
+            else {
+                gameOn('Hp', newOppHp, oppHpTotal, newHeroHp, charHpTotal)
             }
         }
-        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight 
+        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight
     }
 }
