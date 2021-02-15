@@ -1,6 +1,5 @@
 import * as dbHelp from '../js/db-helper.js'
 
-let title = 'Home Page'
 let appbaseRef
 const heroClassStats = [
     {
@@ -45,8 +44,10 @@ document.getElementById(`create`).onclick = function() {
     else{
         const password = document.getElementById(`register-pass`).value
 
-        if (password === '') {
-            alert('You need set a password before you can create your hero')
+        const format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+
+        if (password === '' || password.match(/\d+/g) === null || format.test(password) === false)  {
+            alert('You need set a password with numbers and special characters.')
         }
         else{
 
@@ -58,13 +59,14 @@ document.getElementById(`create`).onclick = function() {
             else{
                 let userData
 
+                const encryptedPass = Math.random().toString(36).substr(2, 5) + "%mago%" + password + "%mago%" + Math.random().toString(36).substr(2, 5)
                 const id = Math.random().toString(36).substr(2, 5) + Date.now()
 
                 for(let stats of heroClassStats){
                     if(stats.name == charClass){
                         userData = {
                             name: charName,
-                            password: password,
+                            password: encryptedPass,
                             class: charClass,
                             health: stats.health,
                             coding: stats.coding,

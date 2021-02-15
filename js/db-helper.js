@@ -14,8 +14,8 @@ export function add(appbaseRef, char, id){
         id: id,
         body: char
     })
-    .then(function(response) {
-        alert('Your hero was successfully')
+    .then(function() {
+        alert('Your hero was successfully created.')
         window.open("fight.html?id=" + id, "_self")
     })
     .catch(function(error) {
@@ -60,7 +60,8 @@ export async function login(appbaseRef, name, password){
             alert(`We couldn't find any hero with that name.`)
         }
         else{
-            if(response.hits.hits[0]._source.password == password){
+            const decryptedPass = response.hits.hits[0]._source.password.split("%mago%")[1]
+            if(decryptedPass == password){
                 const heroId = response.hits.hits[0]._id
                 window.open("fight.html?id=" + heroId, "_self")
             }
