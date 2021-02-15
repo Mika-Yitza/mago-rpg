@@ -26,8 +26,6 @@ const heroClassStats = [
 ]
 
 window.onload = function() {
-    document.getElementById(`title`).innerHTML = title
-
     for(let classObj of heroClassStats){
         document.getElementById(`class`).append(new Option(classObj.name, classObj.name))
     }
