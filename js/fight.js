@@ -36,8 +36,8 @@ function victory(stat) {
 
 function gameOver(stat, newValue, total) {
     document.getElementById(`combat`).innerHTML += '\n' + 'Game Over!'
-    document.getElementById(`heroLabel` + stat).innerHTML = 0
-    document.getElementById(`hero` + stat).style.width = 0
+    document.getElementById(`heroLabelHp`).innerHTML = 0
+    document.getElementById(`heroHp`).style.width = 0
     document.getElementById(`oppLabel` + stat).innerHTML = newValue
     document.getElementById(`opp` + stat).style.width = (newValue / total * 60) + "%"
     isGameOver = true
@@ -50,27 +50,77 @@ function gameOn(stat, newValue, total, newHeroHp, charHpTotal) {
     document.getElementById(`opp` + stat).style.width = (newValue / total * 60) + "%"
 }
 
-function calculateNewHeroHp(oppStrength, charHp){
-    let heroDmgTaken
-    let oppCriticalText
+function newCharValue (attackBaseValue, oldCharValue, criticalChance){
+    let dmgTaken
+    let criticalText
 
-    if ((Math.random() * 100) > 30) {
-        heroDmgTaken = oppStrength
-        oppCriticalText = ""
+    if ((Math.random() * 100) > criticalChance) {
+        dmgTaken = attackBaseValue
+        criticalText = ""
     }
     else {
-        heroDmgTaken = oppStrength + 1
-        oppCriticalText = " (Critical Hit)"
+        dmgTaken = attackBaseValue + 1
+        criticalText = " (Critical Hit)"
     }
-    const newHeroHp = charHp - heroDmgTaken
+    const newCharValue = oldCharValue - dmgTaken
 
     const returnedItems={
-        oppCriticalText: oppCriticalText,
-        newHeroHp: newHeroHp,
-        heroDmgTaken: heroDmgTaken
+        criticalText: criticalText,
+        newCharValue: newCharValue,
+        dmgTaken: dmgTaken
     }
     return returnedItems    
-} 
+}
+
+function fightValues() {
+
+    const charName = document.getElementById(`heroName-fight`).innerHTML
+    const charHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
+    const charCoding = parseInt(document.getElementById(`heroCoding-fight`).innerHTML)
+    const charStrength = parseInt(document.getElementById(`heroStrength-fight`).innerHTML)
+    const charHpTotal = parseInt(document.getElementById(`heroImg-fight`).alt)
+    const oppName = document.getElementById(`oppName-fight`).innerHTML
+    const oppHp = parseInt(document.getElementById(`oppLabelHp`).innerHTML)
+    const oppFw = parseInt(document.getElementById(`oppLabelFw`).innerHTML)
+    const oppStrength = parseInt(document.getElementById(`oppStrength-fight`).innerHTML)
+    const oppFwTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[1])
+    const oppHpTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[0])
+
+    const returnedItems={
+        charName: charName,
+        charHp: charHp,
+        charCoding: charCoding,
+        charStrength: charStrength,
+        charHpTotal: charHpTotal,
+        oppName: oppName,
+        oppHp: oppHp,
+        oppFw: oppFw,
+        oppStrength: oppStrength,
+        oppFwTotal: oppFwTotal,
+        oppHpTotal: oppHpTotal,
+    }
+    return returnedItems
+}
+
+function fightLogic(fightLine1, fightLine2, fightLine3, fightLine4, stat, newOppValue, oppTotalValue, newHeroValue, heroTotalValue) {
+
+    document.getElementById(`combat`).innerHTML += '\n' + fightLine1 + '\n' + fightLine2
+
+    if (newOppValue < 1) {
+        victory(stat)
+    }
+    else {
+        document.getElementById(`combat`).innerHTML += '\n' + fightLine3 + '\n' + fightLine4
+        if (newHeroValue < 1) {
+            gameOver(stat, newOppValue, oppTotalValue)
+        }
+        else {
+            gameOn(stat, newOppValue, oppTotalValue, newHeroValue, heroTotalValue)
+        }
+    }
+    document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight
+    
+}
 
 window.onload = function () {
 
@@ -153,48 +203,20 @@ document.getElementById(`action-hack`).onclick = function () {
     }
     else {
         roundCount()
+        const values = fightValues()
 
-        const charName = document.getElementById(`heroName-fight`).innerHTML
-        const oppName = document.getElementById(`oppName-fight`).innerHTML
-        const charHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
-        const oppFw = parseInt(document.getElementById(`oppLabelFw`).innerHTML)
-        const charCoding = parseInt(document.getElementById(`heroCoding-fight`).innerHTML)
-        const oppStrength = parseInt(document.getElementById(`oppStrength-fight`).innerHTML)
-        const charHpTotal = parseInt(document.getElementById(`heroImg-fight`).alt)
-        const oppFwTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[1])
+        const newOppValues = newCharValue(values.charCoding, values.oppFw, 50)
+        const newOppFw = newOppValues.newCharValue
 
-        let oppDmgTaken
-        let heroCriticalText
-        if ((Math.random() * 100) > 50) {
-            oppDmgTaken = charCoding
-            heroCriticalText = ""
-        }
-        else {
-            oppDmgTaken = charCoding + 1
-            heroCriticalText = " (Critical Hit)"
-        }
-        const newOppFw = oppFw - oppDmgTaken
+        const newHeroValues = newCharValue(values.oppStrength, values.charHp, 30)
+        const newHeroHp = newHeroValues.newCharValue
 
-        const newValues = calculateNewHeroHp(oppStrength, charHp)
-        const newHeroHp = newValues.newHeroHp
+        const fightLine1 = values.charName + ' used his hacking skills to reduce ' + values.oppName + '\’(s) firewall by ' + newOppValues.dmgTaken + newOppValues.criticalText
+        const fightLine2 = values.oppName + ' - Remaining firewall : ' + newOppFw
+        const fightLine3 = values.oppName + ' attacked ' + values.charName + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
+        const fightLine4 = values.charName + ' - Remaining health : ' + newHeroHp
 
-        document.getElementById(`combat`).innerHTML += '\n' + charName + ' used his hacking skills to reduce ' + oppName + '\’(s) firewall by ' + oppDmgTaken + heroCriticalText
-        document.getElementById(`combat`).innerHTML += '\n' + oppName + ' - Remaining firewall : ' + newOppFw
-
-        if (newOppFw < 1) {
-            victory('Fw')
-        }
-        else {
-            document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + newValues.heroDmgTaken + newValues.oppCriticalText
-            document.getElementById(`combat`).innerHTML += '\n' + charName + ' - Remaining health : ' + newHeroHp
-            if (newHeroHp < 1) {
-                gameOver('Fw', newOppFw, oppFwTotal)
-            }
-            else {
-                gameOn('Fw', newOppFw, oppFwTotal, newHeroHp, charHpTotal)
-            }
-        }
-        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight
+        fightLogic(fightLine1, fightLine2, fightLine3, fightLine4, 'Fw', newOppFw, values.oppFwTotal, newHeroHp, values.charHpTotal)
     }
 }
 
@@ -206,46 +228,19 @@ document.getElementById(`action-punch`).onclick = function () {
     else {
         roundCount()
 
-        const charName = document.getElementById(`heroName-fight`).innerHTML
-        const oppName = document.getElementById(`oppName-fight`).innerHTML
-        const charHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
-        const oppHp = parseInt(document.getElementById(`oppLabelHp`).innerHTML)
-        const charStrength = parseInt(document.getElementById(`heroStrength-fight`).innerHTML)
-        const oppStrength = parseInt(document.getElementById(`oppStrength-fight`).innerHTML)
-        const charHpTotal = parseInt(document.getElementById(`heroImg-fight`).alt)
-        const oppHpTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[0])
+        const values = fightValues()
 
-        let oppDmgTaken
-        let heroCriticalText
-        if ((Math.random() * 100) > 50) {
-            oppDmgTaken = charStrength
-            heroCriticalText = ""
-        }
-        else {
-            oppDmgTaken = charStrength + 1
-            heroCriticalText = " (Critical Hit)"
-        }
-        const newOppHp = oppHp - oppDmgTaken
+        const newOppValues = newCharValue(values.charStrength, values.oppHp, 40)
+        const newOppHp = newOppValues.newCharValue
 
-        const newValues = calculateNewHeroHp(oppStrength, charHp)
-        const newHeroHp = newValues.newHeroHp
+        const newHeroValues = newCharValue(values.oppStrength, values.charHp, 30)
+        const newHeroHp = newHeroValues.newCharValue
 
-        document.getElementById(`combat`).innerHTML += '\n' + charName + ' used his mighty punch to reduce ' + oppName + '\’(s) health by ' + oppDmgTaken + heroCriticalText
-        document.getElementById(`combat`).innerHTML += '\n' + oppName + ' - Remaining health : ' + newOppHp
+        const fightLine1 = values.charName + ' used his mighty punch to reduce ' + values.oppName + '\’(s) health by ' + newOppValues.dmgTaken + newOppValues.criticalText
+        const fightLine2 = values.oppName + ' - Remaining health : ' + newOppHp
+        const fightLine3 = values.oppName + ' attacked ' + values.charName + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
+        const fightLine4 = values.charName + ' - Remaining health : ' + newHeroHp
 
-        if (newOppHp < 1) {
-            victory('Hp')
-        }
-        else {
-            document.getElementById(`combat`).innerHTML += '\n' + oppName + ' attacked ' + charName + ' for ' + newValues.heroDmgTaken + newValues.oppCriticalText
-            document.getElementById(`combat`).innerHTML += '\n' + charName + ' - Remaining health : ' + newHeroHp
-            if (newHeroHp < 1) {
-                gameOver('Hp', newOppHp, oppHpTotal)
-            }
-            else {
-                gameOn('Hp', newOppHp, oppHpTotal, newHeroHp, charHpTotal)
-            }
-        }
-        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight
+        fightLogic(fightLine1, fightLine2, fightLine3, fightLine4, 'Hp', newOppHp, values.oppHpTotal, newHeroHp, values.charHpTotal)
     }
 }
