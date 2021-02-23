@@ -72,7 +72,7 @@ function newCharValue (attackBaseValue, oldCharValue, criticalChance){
     return returnedItems    
 }
 
-function fightValues() {
+function fightValues(action) {
 
     const charName = document.getElementById(`heroName-fight`).innerHTML
     const charHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
@@ -86,18 +86,49 @@ function fightValues() {
     const oppFwTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[1])
     const oppHpTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[0])
 
+    let charBaseValue, oppValue, oppTotalValue, criticalChance, stat, line101, line102, line201
+    switch(action){
+        case 'Hack':{
+            charBaseValue = charCoding
+            oppValue = oppFw
+            oppTotalValue = oppFwTotal
+            criticalChance = 50
+            stat = 'Fw'
+            line101 = ' used his hacking skills to reduce '
+            line102 = '\’(s) firewall by '
+            line201 = ' - Remaining firewall : '
+            break
+        }
+        case 'Punch':{
+            charBaseValue = charStrength
+            oppValue = oppHp
+            oppTotalValue = oppHpTotal
+            criticalChance = 40
+            stat = 'Hp'
+            line101 = ' used his mighty punch to reduce '
+            line102 = '\’(s) health by '
+            line201 = ' - Remaining health : '
+            break
+        }
+    }
+    
+    const newOppValues = newCharValue(charBaseValue, oppValue, criticalChance)
+    const newHeroValues = newCharValue(oppStrength, charHp, 30)
+    const fightLine1 = charName + line101 + oppName + line102 + newOppValues.dmgTaken + newOppValues.criticalText
+    const fightLine2 = oppName + line201 + newOppValues.newCharValue
+    const fightLine3 = oppName + ' attacked ' + charName + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
+    const fightLine4 = charName + ' - Remaining health : ' + newHeroValues.newCharValue
+
     const returnedItems={
-        charName: charName,
-        charHp: charHp,
-        charCoding: charCoding,
-        charStrength: charStrength,
         charHpTotal: charHpTotal,
-        oppName: oppName,
-        oppHp: oppHp,
-        oppFw: oppFw,
-        oppStrength: oppStrength,
-        oppFwTotal: oppFwTotal,
-        oppHpTotal: oppHpTotal,
+        newCharValue: newHeroValues.newCharValue,
+        newOppValue: newOppValues.newCharValue,
+        oppTotalValue: oppTotalValue,
+        stat: stat,
+        fightLine1: fightLine1,
+        fightLine2: fightLine2,
+        fightLine3: fightLine3,
+        fightLine4: fightLine4
     }
     return returnedItems
 }
@@ -197,50 +228,15 @@ document.getElementById(`fight`).onclick = function () {
     }
 }
 
-document.getElementById(`action-hack`).onclick = function () {
-    if (isGameOver) {
-        alert(gameOverMessage)
-    }
-    else {
-        roundCount()
-        const values = fightValues()
-
-        const newOppValues = newCharValue(values.charCoding, values.oppFw, 50)
-        const newOppFw = newOppValues.newCharValue
-
-        const newHeroValues = newCharValue(values.oppStrength, values.charHp, 30)
-        const newHeroHp = newHeroValues.newCharValue
-
-        const fightLine1 = values.charName + ' used his hacking skills to reduce ' + values.oppName + '\’(s) firewall by ' + newOppValues.dmgTaken + newOppValues.criticalText
-        const fightLine2 = values.oppName + ' - Remaining firewall : ' + newOppFw
-        const fightLine3 = values.oppName + ' attacked ' + values.charName + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
-        const fightLine4 = values.charName + ' - Remaining health : ' + newHeroHp
-
-        fightLogic(fightLine1, fightLine2, fightLine3, fightLine4, 'Fw', newOppFw, values.oppFwTotal, newHeroHp, values.charHpTotal)
-    }
-}
-
-document.getElementById(`action-punch`).onclick = function () {
-
-    if (isGameOver) {
-        alert(gameOverMessage)
-    }
-    else {
-        roundCount()
-
-        const values = fightValues()
-
-        const newOppValues = newCharValue(values.charStrength, values.oppHp, 40)
-        const newOppHp = newOppValues.newCharValue
-
-        const newHeroValues = newCharValue(values.oppStrength, values.charHp, 30)
-        const newHeroHp = newHeroValues.newCharValue
-
-        const fightLine1 = values.charName + ' used his mighty punch to reduce ' + values.oppName + '\’(s) health by ' + newOppValues.dmgTaken + newOppValues.criticalText
-        const fightLine2 = values.oppName + ' - Remaining health : ' + newOppHp
-        const fightLine3 = values.oppName + ' attacked ' + values.charName + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
-        const fightLine4 = values.charName + ' - Remaining health : ' + newHeroHp
-
-        fightLogic(fightLine1, fightLine2, fightLine3, fightLine4, 'Hp', newOppHp, values.oppHpTotal, newHeroHp, values.charHpTotal)
+for(let i=1; i<=2; i++){
+    document.getElementById(`action` + i).onclick = function () {
+        if (isGameOver) {
+            alert(gameOverMessage)
+        }
+        else {
+            roundCount()
+            const values = fightValues(document.getElementById(`action` + i).innerHTML)
+            fightLogic(values.fightLine1, values.fightLine2, values.fightLine3, values.fightLine4, values.stat, values.newOppValue, values.oppTotalValue, values.newCharValue, values.charHpTotal)
+        }
     }
 }
