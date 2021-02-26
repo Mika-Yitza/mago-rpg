@@ -12,48 +12,7 @@
 			<h1 type='text' id='title'>MAG-O RPG</h1>
 		</div>
 
-		<div class="bodyPanel" style="overflow-x:auto;">
-
-			<table>
-				<tr>
-					<td>
-						<input type='text' id='opponent' placeholder='Opponent'></input>
-						
-						<select id='classOpponent'>
-							<option>Pick class</option>
-						</select>
-
-						<button id='createOpp'>Create opponent</button>
-		
-					</td>
-					<td>
-						<textarea id="opponentPanel" rows="8" disabled></textarea>
-				
-						<img id="oppImg" src="assets/default.png" class="img-right"></img>
-					</td>
-				</tr>
-			</table>
-
-		</div>
-
-		<div class="bodyPanel" style="overflow-x:auto;">
-
-			<table>
-				<tr>
-					<td>
-						<button id='fight'>Fight</button>
-
-					</td>
-					<td>
-					</td>
-				</tr>
-			</table>
-
-		</div>
-
-		</br>
-
-		<div id="fight-details" class="bodyPanel" style="overflow-x:auto;visibility: hidden;">
+		<div id="fight-details" class="bodyPanel" style="overflow-x:auto;">
 
 			<table>
 				<tr>
@@ -120,7 +79,7 @@
 
 		</div>
 		
-		<div id="fight-panel" class="bodyPanel" style="overflow-x:auto;visibility: hidden;">
+		<div id="fight-panel" class="bodyPanel" style="overflow-x:auto;">
 
 			<table>
 				<tr>
@@ -130,6 +89,20 @@
 					</td>
 					<td>
 						<textarea id="combat" class="fight-panel" rows="8" cols="100" disabled></textarea>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<div id="continuePanel" class="bodyPanel" style="overflow-x:auto;visibility: hidden;">
+
+			<table>
+				<tr>
+					<td>
+					</td>
+					<td>
+						<button id='continue'>Continue</button>
 					</td>
 				</tr>
 			</table>

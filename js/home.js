@@ -6,22 +6,19 @@ const heroClassStats = [
         name : 'Tester',
         health : 10,
         coding : 1,
-        strength : 3,
-        img : 'tester.png'
+        strength : 3
     },
     {
         name : 'Developer',
         health : 8,
         coding : 3,
-        strength : 1,
-        img : 'dev.png'
+        strength : 1
     },
     {
         name : 'Data Analyst',
         health : 12,
         coding : 2,
-        strength : 2,
-        img : 'da.png'
+        strength : 2
     }
 ]
 

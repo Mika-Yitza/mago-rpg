@@ -3,6 +3,7 @@ import * as dbHelp from './db-helper.js'
 let appbaseRef
 let round
 let isGameOver
+let gameConclusion
 const gameOverMessage = 'This game has finished.'
 
 const opponents = [
@@ -28,19 +29,23 @@ function roundCount() {
 }
 
 function victory(stat) {
-    document.getElementById(`combat`).innerHTML += '\n' + 'Victory!'
+    document.getElementById(`combat`).innerHTML += '\n' + 'Victory!' + '\n' + 'Xp increased by 50'
     document.getElementById(`oppLabel` + stat).innerHTML = 0
     document.getElementById(`opp` + stat).style.width = 0
     isGameOver = true
+    gameConclusion = "victory"
+    document.getElementById(`continuePanel`).style.visibility = "visible"
 }
 
 function gameOver(stat, newValue, total) {
-    document.getElementById(`combat`).innerHTML += '\n' + 'Game Over!'
+    document.getElementById(`combat`).innerHTML += '\n' + 'Game Over!' + '\n' + 'Xp increased by 25'
     document.getElementById(`heroLabelHp`).innerHTML = 0
     document.getElementById(`heroHp`).style.width = 0
     document.getElementById(`oppLabel` + stat).innerHTML = newValue
     document.getElementById(`opp` + stat).style.width = (newValue / total * 60) + "%"
     isGameOver = true
+    gameConclusion = "defeat"
+    document.getElementById(`continuePanel`).style.visibility = "visible"
 }
 
 function gameOn(stat, newValue, total, newHeroHp, charHpTotal) {
@@ -155,77 +160,35 @@ function fightLogic(fightLine1, fightLine2, fightLine3, fightLine4, stat, newOpp
 
 window.onload = function () {
 
-    for (let oppObj of opponents) {
-        document.getElementById(`classOpponent`).append(new Option(oppObj.name, oppObj.name))
-    }
-
-    const userId = window.location.href.split("id=")[1]
-
     appbaseRef = dbHelp.auth()
-    dbHelp.search(appbaseRef, userId)
-
-}
-
-document.getElementById(`createOpp`).onclick = function () {
-    const oppName = document.getElementById(`opponent`).value
-
-    if (oppName === '') {
-        alert('You need to name your opponent before you can create it')
-    }
-    else {
-        const oppClass = document.getElementById(`classOpponent`).value
-
-        for (let stats of opponents) {
-            if (stats.name == oppClass) {
-                document.getElementById(`opponentPanel`).innerHTML = oppName + '\n\n Class: ' + oppClass +
-                    '\n HP: ' + stats.health + '\n Firewall: ' + stats.firewall + '\n Strength: ' + stats.strength
-                document.getElementById(`oppImg`).src = "assets/" + stats.img
-            }
-        }
-    }
-}
-
-document.getElementById(`fight`).onclick = function () {
     round = 1
-    const oppPannel = document.getElementById(`opponentPanel`).value
+    const charName = sessionStorage.getItem('name')
+    const charClass = sessionStorage.getItem('class')
 
-    if (oppPannel === '') {
-        alert('You need to create the opponent before you can fight')
-    }
-    else {
-        const charName = sessionStorage.getItem('name')
-        const charClass = sessionStorage.getItem('class')
-        const oppName = document.getElementById(`opponent`).value
-        const oppClass = document.getElementById(`classOpponent`).value
+    const randomOpp = Math.floor(Math.random() * opponents.length)
+    const oppName = opponents[randomOpp].name
+    document.getElementById(`combat`).innerHTML = charName + ' is ready to fight ' + oppName
 
-        document.getElementById(`combat`).innerHTML = charName + ' is ready to fight ' + oppName
+    document.getElementById(`heroName-fight`).innerHTML = charName
+    document.getElementById(`oppName-fight`).innerHTML = oppName
+    document.getElementById(`heroImg-fight`).src = "assets/" + charClass + ".png"
+    document.getElementById(`oppImg-fight`).src = "assets/" + opponents[randomOpp].img
 
-        document.getElementById(`heroName-fight`).innerHTML = charName
-        document.getElementById(`oppName-fight`).innerHTML = oppName
-        document.getElementById(`heroImg-fight`).src = "assets/" + charClass + ".png"
-        document.getElementById(`oppImg-fight`).src = document.getElementById(`oppImg`).src
+    document.getElementById(`heroLabelHp`).innerHTML = sessionStorage.getItem('health')
+    document.getElementById(`heroStrength-fight`).innerHTML = sessionStorage.getItem('strength')
+    document.getElementById(`heroCoding-fight`).innerHTML = sessionStorage.getItem('coding')
+    document.getElementById(`heroImg-fight`).alt = sessionStorage.getItem('health')
 
+    document.getElementById(`oppLabelHp`).innerHTML = opponents[randomOpp].health
+    document.getElementById(`oppLabelFw`).innerHTML = opponents[randomOpp].firewall
+    document.getElementById(`oppStrength-fight`).innerHTML = opponents[randomOpp].strength
+    document.getElementById(`oppImg-fight`).alt = opponents[randomOpp].health + "&" + opponents[randomOpp].firewall
 
-        document.getElementById(`heroLabelHp`).innerHTML = sessionStorage.getItem('health')
-        document.getElementById(`heroStrength-fight`).innerHTML = sessionStorage.getItem('strength')
-        document.getElementById(`heroCoding-fight`).innerHTML = sessionStorage.getItem('coding')
-        document.getElementById(`heroImg-fight`).alt = sessionStorage.getItem('health')
-
-        for (let stats of opponents) {
-            if (stats.name == oppClass) {
-                document.getElementById(`oppLabelHp`).innerHTML = stats.health
-                document.getElementById(`oppLabelFw`).innerHTML = stats.firewall
-                document.getElementById(`oppStrength-fight`).innerHTML = stats.strength
-                document.getElementById(`oppImg-fight`).alt = stats.health + "&" + stats.firewall
-            }
-        }
-        document.getElementById(`heroHp`).style.width = "60%"
-        document.getElementById(`oppFw`).style.width = "60%"
-        document.getElementById(`oppHp`).style.width = "60%"
-        document.getElementById(`fight-details`).style.visibility = "visible"
-        document.getElementById(`fight-panel`).style.visibility = "visible"
-        isGameOver = false
-    }
+    document.getElementById(`heroHp`).style.width = "60%"
+    document.getElementById(`oppFw`).style.width = "60%"
+    document.getElementById(`oppHp`).style.width = "60%"
+    document.getElementById(`continuePanel`).style.visibility = "hidden"
+    isGameOver = false
 }
 
 for(let i=1; i<=2; i++){
@@ -238,5 +201,31 @@ for(let i=1; i<=2; i++){
             const values = fightValues(document.getElementById(`action` + i).innerHTML)
             fightLogic(values.fightLine1, values.fightLine2, values.fightLine3, values.fightLine4, values.stat, values.newOppValue, values.oppTotalValue, values.newCharValue, values.charHpTotal)
         }
+    }
+}
+
+document.getElementById(`continue`).onclick = function () {
+
+    const heroId = sessionStorage.getItem('id')
+    const currentXP = parseInt(sessionStorage.getItem('xp'))
+    const xpIncrease = gameConclusion == 'victory' ? 50 : 25
+    const currentLvl = sessionStorage.getItem('level')
+
+    if((currentXP + xpIncrease) >= (currentLvl * 100)){
+        sessionStorage.setItem('xp', (currentXP + xpIncrease - (currentLvl * 100)))
+        window.open("upgrade.html", "_self")
+    }
+    else{
+        const userData = {
+            name: sessionStorage.getItem('name'),
+            password: sessionStorage.getItem('password'),
+            class: sessionStorage.getItem('class'),
+            health: sessionStorage.getItem('health'),
+            coding: sessionStorage.getItem('coding'),
+            strength: sessionStorage.getItem('strength'),
+            level: currentLvl,
+            xp: (currentXP + xpIncrease)
+        }
+        dbHelp.add(appbaseRef, userData, heroId)
     }
 }

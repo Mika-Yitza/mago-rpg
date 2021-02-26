@@ -15,8 +15,7 @@ export function add(appbaseRef, char, id){
         body: char
     })
     .then(function() {
-        alert('Your hero was successfully created.')
-        window.open("fight.html?id=" + id, "_self")
+        window.open("menu.html", "_self")
     })
     .catch(function(error) {
         console.log(error)
@@ -63,7 +62,7 @@ export async function login(appbaseRef, name, password){
             const decryptedPass = response.hits.hits[0]._source.password.split("%mago%")[1]
             if(decryptedPass == password){
                 const heroId = response.hits.hits[0]._id
-                window.open("fight.html?id=" + heroId, "_self")
+                window.open("menu.html", "_self")
             }
             else{
                 alert(`The password is incorrect.`)
@@ -87,11 +86,15 @@ export async function search(appbaseRef, id){
         const heroData = response.hits.hits[0]._source
 
         sessionStorage.clear()
+        sessionStorage.setItem('id', id)
         sessionStorage.setItem('name', heroData.name)
         sessionStorage.setItem('class', heroData.class)
         sessionStorage.setItem('health', heroData.health)
         sessionStorage.setItem('coding', heroData.coding)
         sessionStorage.setItem('strength', heroData.strength)
+        sessionStorage.setItem('level', heroData.level)
+        sessionStorage.setItem('xp', heroData.xp)
+        sessionStorage.setItem('password', heroData.password)
 
     }).catch(function(error) {
         console.log("caught an error: ", error)
