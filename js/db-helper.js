@@ -15,6 +15,8 @@ export function add(appbaseRef, char, id){
         body: char
     })
     .then(function() {
+        sessionStorage.clear()
+        sessionStorage.setItem('id', id)
         window.open("menu.html", "_self")
     })
     .catch(function(error) {
@@ -62,6 +64,8 @@ export async function login(appbaseRef, name, password){
             const decryptedPass = response.hits.hits[0]._source.password.split("%mago%")[1]
             if(decryptedPass == password){
                 const heroId = response.hits.hits[0]._id
+                sessionStorage.clear()
+                sessionStorage.setItem('id', heroId)
                 window.open("menu.html", "_self")
             }
             else{
@@ -92,6 +96,8 @@ export async function search(appbaseRef, id){
         sessionStorage.setItem('health', heroData.health)
         sessionStorage.setItem('coding', heroData.coding)
         sessionStorage.setItem('strength', heroData.strength)
+        sessionStorage.setItem('talent', heroData.talent)
+        sessionStorage.setItem('agility', heroData.agility)
         sessionStorage.setItem('level', heroData.level)
         sessionStorage.setItem('xp', heroData.xp)
         sessionStorage.setItem('password', heroData.password)

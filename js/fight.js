@@ -23,6 +23,23 @@ const opponents = [
     }
 ]
 
+function storedValues() {
+    const returnedItems={
+        agility: parseInt(sessionStorage.getItem('agility')),
+        class: sessionStorage.getItem('class'),
+        coding: parseInt(sessionStorage.getItem('coding')),
+        health: parseInt(sessionStorage.getItem('health')),
+        id: sessionStorage.getItem('id'),
+        level: parseInt(sessionStorage.getItem('level')),
+        name: sessionStorage.getItem('name'),
+        password: sessionStorage.getItem('password'),
+        strength: parseInt(sessionStorage.getItem('strength')),
+        talent: parseInt(sessionStorage.getItem('talent')),
+        xp: parseInt(sessionStorage.getItem('xp'))
+    }
+    return returnedItems
+}
+
 function roundCount() {
     document.getElementById(`combat`).innerHTML += '\n\n' + 'Round ' + round + '\n'
     round++
@@ -79,11 +96,8 @@ function newCharValue (attackBaseValue, oldCharValue, criticalChance){
 
 function fightValues(action) {
 
-    const charName = document.getElementById(`heroName-fight`).innerHTML
-    const charHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
-    const charCoding = parseInt(document.getElementById(`heroCoding-fight`).innerHTML)
-    const charStrength = parseInt(document.getElementById(`heroStrength-fight`).innerHTML)
-    const charHpTotal = parseInt(document.getElementById(`heroImg-fight`).alt)
+    const charValues = storedValues()
+    const charCurrentHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
     const oppName = document.getElementById(`oppName-fight`).innerHTML
     const oppHp = parseInt(document.getElementById(`oppLabelHp`).innerHTML)
     const oppFw = parseInt(document.getElementById(`oppLabelFw`).innerHTML)
@@ -94,7 +108,7 @@ function fightValues(action) {
     let charBaseValue, oppValue, oppTotalValue, criticalChance, stat, line101, line102, line201
     switch(action){
         case 'Hack':{
-            charBaseValue = charCoding
+            charBaseValue = charValues.coding
             oppValue = oppFw
             oppTotalValue = oppFwTotal
             criticalChance = 50
@@ -105,7 +119,7 @@ function fightValues(action) {
             break
         }
         case 'Punch':{
-            charBaseValue = charStrength
+            charBaseValue = charValues.strength
             oppValue = oppHp
             oppTotalValue = oppHpTotal
             criticalChance = 40
@@ -115,17 +129,29 @@ function fightValues(action) {
             line201 = ' - Remaining health : '
             break
         }
+        case 'Coffee Splash':{
+            charBaseValue = charValues.talent
+            oppValue = oppHp
+            oppTotalValue = oppHpTotal
+            criticalChance = 40
+            stat = 'Hp'
+            line101 = ' tossed a delicious coffee to burn the circuits and reduce '
+            line102 = '\’(s) health by '
+            line201 = ' - Remaining health : '
+            break
+        }
     }
     
     const newOppValues = newCharValue(charBaseValue, oppValue, criticalChance)
-    const newHeroValues = newCharValue(oppStrength, charHp, 30)
-    const fightLine1 = charName + line101 + oppName + line102 + newOppValues.dmgTaken + newOppValues.criticalText
+    const newHeroValues = newCharValue(oppStrength, charCurrentHp, 30)
+    const fightLine1 = charValues.name + line101 + oppName + line102 + newOppValues.dmgTaken + newOppValues.criticalText
     const fightLine2 = oppName + line201 + newOppValues.newCharValue
-    const fightLine3 = oppName + ' attacked ' + charName + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
-    const fightLine4 = charName + ' - Remaining health : ' + newHeroValues.newCharValue
+    const fightLine3 = oppName + ' attacked ' + charValues.name + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
+    const remainingHealth = newHeroValues.newCharValue > 0 ? newHeroValues.newCharValue : 0
+    const fightLine4 = charValues.name + ' - Remaining health : ' + remainingHealth
 
     const returnedItems={
-        charHpTotal: charHpTotal,
+        charHpTotal: charValues.health,
         newCharValue: newHeroValues.newCharValue,
         newOppValue: newOppValues.newCharValue,
         oppTotalValue: oppTotalValue,
@@ -162,22 +188,17 @@ window.onload = function () {
 
     appbaseRef = dbHelp.auth()
     round = 1
-    const charName = sessionStorage.getItem('name')
-    const charClass = sessionStorage.getItem('class')
+    const charValues = storedValues()
 
     const randomOpp = Math.floor(Math.random() * opponents.length)
-    const oppName = opponents[randomOpp].name
-    document.getElementById(`combat`).innerHTML = charName + ' is ready to fight ' + oppName
+    document.getElementById(`combat`).innerHTML = charValues.name + ' is ready to fight ' + opponents[randomOpp].name
 
-    document.getElementById(`heroName-fight`).innerHTML = charName
-    document.getElementById(`oppName-fight`).innerHTML = oppName
-    document.getElementById(`heroImg-fight`).src = "assets/" + charClass + ".png"
+    document.getElementById(`heroName-fight`).innerHTML = charValues.name
+    document.getElementById(`oppName-fight`).innerHTML = opponents[randomOpp].name
+    document.getElementById(`heroImg-fight`).src = "assets/" + charValues.class + ".png"
     document.getElementById(`oppImg-fight`).src = "assets/" + opponents[randomOpp].img
 
-    document.getElementById(`heroLabelHp`).innerHTML = sessionStorage.getItem('health')
-    document.getElementById(`heroStrength-fight`).innerHTML = sessionStorage.getItem('strength')
-    document.getElementById(`heroCoding-fight`).innerHTML = sessionStorage.getItem('coding')
-    document.getElementById(`heroImg-fight`).alt = sessionStorage.getItem('health')
+    document.getElementById(`heroLabelHp`).innerHTML = charValues.health
 
     document.getElementById(`oppLabelHp`).innerHTML = opponents[randomOpp].health
     document.getElementById(`oppLabelFw`).innerHTML = opponents[randomOpp].firewall
@@ -191,7 +212,7 @@ window.onload = function () {
     isGameOver = false
 }
 
-for(let i=1; i<=2; i++){
+for(let i=1; i<=3; i++){
     document.getElementById(`action` + i).onclick = function () {
         if (isGameOver) {
             alert(gameOverMessage)
@@ -206,26 +227,26 @@ for(let i=1; i<=2; i++){
 
 document.getElementById(`continue`).onclick = function () {
 
-    const heroId = sessionStorage.getItem('id')
-    const currentXP = parseInt(sessionStorage.getItem('xp'))
+    const charValues = storedValues()
     const xpIncrease = gameConclusion == 'victory' ? 50 : 25
-    const currentLvl = sessionStorage.getItem('level')
 
-    if((currentXP + xpIncrease) >= (currentLvl * 100)){
-        sessionStorage.setItem('xp', (currentXP + xpIncrease - (currentLvl * 100)))
+    if((charValues.xp + xpIncrease) >= (charValues.level * 100)){
+        sessionStorage.setItem('xp', (charValues.xp + xpIncrease))
         window.open("upgrade.html", "_self")
     }
     else{
         const userData = {
-            name: sessionStorage.getItem('name'),
-            password: sessionStorage.getItem('password'),
-            class: sessionStorage.getItem('class'),
-            health: sessionStorage.getItem('health'),
-            coding: sessionStorage.getItem('coding'),
-            strength: sessionStorage.getItem('strength'),
-            level: currentLvl,
-            xp: (currentXP + xpIncrease)
+            name: charValues.name,
+            password: charValues.password,
+            class: charValues.class,
+            health: charValues.health,
+            coding: charValues.coding,
+            strength: charValues.strength,
+            talent: charValues.talent,
+            agility: charValues.agility,
+            level: charValues.level,
+            xp: (charValues.xp + xpIncrease)
         }
-        dbHelp.add(appbaseRef, userData, heroId)
+        dbHelp.add(appbaseRef, userData, charValues.id)
     }
 }

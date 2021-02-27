@@ -3,22 +3,25 @@ import * as dbHelp from '../js/db-helper.js'
 let appbaseRef
 const heroClassStats = [
     {
-        name : 'Tester',
+        name : 'Security',
         health : 10,
-        coding : 1,
-        strength : 3
+        coding : 0,
+        strength : 3,
+        talent : 0
     },
     {
         name : 'Developer',
         health : 8,
         coding : 3,
-        strength : 1
+        strength : 0,
+        talent : 1
     },
     {
-        name : 'Data Analyst',
-        health : 12,
-        coding : 2,
-        strength : 2
+        name : 'Barista',
+        health : 9,
+        coding : 0,
+        strength : 1,
+        talent : 3
     }
 ]
 
@@ -66,6 +69,8 @@ document.getElementById(`create`).onclick = function() {
                             health: stats.health,
                             coding: stats.coding,
                             strength: stats.strength,
+                            talent: stats.talent,
+                            agility: 0,
                             level: 1,
                             xp: 0
                         }
