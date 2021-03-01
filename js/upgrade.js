@@ -1,7 +1,6 @@
 import * as dbHelp from './db-helper.js'
 
 let appbaseRef
-let userId
 
 window.onload = function () {
 

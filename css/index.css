@@ -97,6 +97,12 @@ textarea {
 	width: 33%;
 }
 
+.img-centre {
+	border-bottom: 3px;
+	height: 30%;
+	width: 100%;
+}
+
 .hp-right {
 	background-color: red;
 	float: right;

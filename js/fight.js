@@ -23,23 +23,6 @@ const opponents = [
     }
 ]
 
-function storedValues() {
-    const returnedItems={
-        agility: parseInt(sessionStorage.getItem('agility')),
-        class: sessionStorage.getItem('class'),
-        coding: parseInt(sessionStorage.getItem('coding')),
-        health: parseInt(sessionStorage.getItem('health')),
-        id: sessionStorage.getItem('id'),
-        level: parseInt(sessionStorage.getItem('level')),
-        name: sessionStorage.getItem('name'),
-        password: sessionStorage.getItem('password'),
-        strength: parseInt(sessionStorage.getItem('strength')),
-        talent: parseInt(sessionStorage.getItem('talent')),
-        xp: parseInt(sessionStorage.getItem('xp'))
-    }
-    return returnedItems
-}
-
 function roundCount() {
     document.getElementById(`combat`).innerHTML += '\n\n' + 'Round ' + round + '\n'
     round++
@@ -96,7 +79,7 @@ function newCharValue (attackBaseValue, oldCharValue, criticalChance){
 
 function fightValues(action) {
 
-    const charValues = storedValues()
+    const charValues = dbHelp.getStoredValues()
     const charCurrentHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
     const oppName = document.getElementById(`oppName-fight`).innerHTML
     const oppHp = parseInt(document.getElementById(`oppLabelHp`).innerHTML)
@@ -188,7 +171,7 @@ window.onload = function () {
 
     appbaseRef = dbHelp.auth()
     round = 1
-    const charValues = storedValues()
+    const charValues = dbHelp.getStoredValues()
 
     const randomOpp = Math.floor(Math.random() * opponents.length)
     document.getElementById(`combat`).innerHTML = charValues.name + ' is ready to fight ' + opponents[randomOpp].name
@@ -227,7 +210,7 @@ for(let i=1; i<=3; i++){
 
 document.getElementById(`continue`).onclick = function () {
 
-    const charValues = storedValues()
+    const charValues = dbHelp.getStoredValues()
     const xpIncrease = gameConclusion == 'victory' ? 50 : 25
 
     if((charValues.xp + xpIncrease) >= (charValues.level * 100)){

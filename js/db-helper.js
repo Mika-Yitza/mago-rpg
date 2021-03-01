@@ -106,3 +106,20 @@ export async function search(appbaseRef, id){
         console.log("caught an error: ", error)
     })
 }
+
+export function getStoredValues() {
+    const returnedItems={
+        agility: parseInt(sessionStorage.getItem('agility')),
+        class: sessionStorage.getItem('class'),
+        coding: parseInt(sessionStorage.getItem('coding')),
+        health: parseInt(sessionStorage.getItem('health')),
+        id: sessionStorage.getItem('id'),
+        level: parseInt(sessionStorage.getItem('level')),
+        name: sessionStorage.getItem('name'),
+        password: sessionStorage.getItem('password'),
+        strength: parseInt(sessionStorage.getItem('strength')),
+        talent: parseInt(sessionStorage.getItem('talent')),
+        xp: parseInt(sessionStorage.getItem('xp'))
+    }
+    return returnedItems
+}
