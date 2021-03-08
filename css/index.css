@@ -8,7 +8,7 @@ body {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 60%;
+	width: 50%;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -70,6 +70,16 @@ button {
 	margin-bottom: 5px;
 }
 
+.button-mid {
+	height: 15%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5%;
+	font-size: 300%;
+	font-family: 'Times New Roman', serif;
+}
+
 textarea {
 	border-bottom: 3px;
 	float: left;
@@ -79,7 +89,7 @@ textarea {
 	resize: none;
 }
 
-.fight-panel{
+.fight-panel {
 	width: 100%;
 }
 
