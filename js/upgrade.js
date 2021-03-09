@@ -18,23 +18,29 @@ window.onload = function () {
         case "Security": {
             userData.strength++
             statMessage1 = "Strength increased to " + userData.strength
+            document.getElementById(`action1`).innerHTML = "Increase Coding"
+            document.getElementById(`action2`).innerHTML = "Increase Talent"
             break
         }
         case "Developer": {
             userData.coding++
             statMessage1 = "Coding increased to " + userData.coding
+            document.getElementById(`action1`).innerHTML = "Increase Strength"
+            document.getElementById(`action2`).innerHTML = "Increase Talent"
             break
         }        
         case "Barista": {
             userData.talent++
             statMessage1 = "Talent increased to " + userData.talent
+            document.getElementById(`action1`).innerHTML = "Increase Coding"
+            document.getElementById(`action2`).innerHTML = "Increase Strength"
             break
         }
     }
 
     if(userData.level%2 == 0){
         userData.agility++
-        statMessage2 = "Agility increased to " + userData.agility
+        statMessage2 = "Agility increased to " + userData.agility + '\n '
     }
     else{
         statMessage2 = ""
@@ -44,6 +50,17 @@ window.onload = function () {
                                                 + '\n ' + "Health increased to " + userData.health
                                                 + '\n ' + statMessage1
                                                 + '\n ' + statMessage2
+}
+
+for(let i=1; i<=2; i++){
+    document.getElementById(`action` + i).onclick = function () {
+        const stat = document.getElementById(`action` + i).innerHTML.split(' ')[1]
+        userData[stat.toLowerCase()]++
+        document.getElementById(`lvlup`).innerHTML += stat + " increased to " + userData[stat.toLowerCase()]
+        document.getElementById(`action1`).style.visibility = "hidden"
+        document.getElementById(`action2`).style.visibility = "hidden"
+        document.getElementById(`continue`).style.visibility = "visible"
+    }
 }
 
 document.getElementById(`continue`).onclick = function () {
