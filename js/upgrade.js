@@ -45,6 +45,7 @@ window.onload = function () {
                                                 + '\n ' + statMessage1
                                                 + '\n ' + statMessage2
 
+    document.getElementById(`continue`).style.visibility = "hidden"
 }
 
 document.getElementById(`continue`).onclick = function () {

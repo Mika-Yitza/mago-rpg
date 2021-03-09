@@ -1,16 +1,18 @@
-
+import * as dbHelp from './db-helper.js'
 
 window.onload = function () {
 
-        document.getElementById(`heroName-fight`).innerHTML = sessionStorage.getItem('name')
-        document.getElementById(`heroImg-fight`).src = "assets/" + sessionStorage.getItem('class') + ".png"
-        document.getElementById(`heroLevel`).innerHTML = sessionStorage.getItem('level')
-        document.getElementById(`heroXp`).innerHTML = sessionStorage.getItem('xp')
-        document.getElementById(`heroHealth`).innerHTML = sessionStorage.getItem('health')
-        document.getElementById(`heroStrength`).innerHTML = sessionStorage.getItem('strength')
-        document.getElementById(`heroCoding`).innerHTML = sessionStorage.getItem('coding')
-        document.getElementById(`heroTalent`).innerHTML = sessionStorage.getItem('talent')
-        document.getElementById(`heroAgility`).innerHTML = sessionStorage.getItem('agility')
+        let userData = dbHelp.getStoredValues()
+
+        document.getElementById(`heroName-fight`).innerHTML = userData.name
+        document.getElementById(`heroImg-fight`).src = "assets/" + userData.class + ".png"
+        document.getElementById(`heroLevel`).innerHTML = userData.level
+        document.getElementById(`heroXp`).innerHTML = userData.xp
+        document.getElementById(`heroHealth`).innerHTML = userData.health
+        document.getElementById(`heroStrength`).innerHTML = userData.strength
+        document.getElementById(`heroCoding`).innerHTML = userData.coding
+        document.getElementById(`heroTalent`).innerHTML = userData.talent
+        document.getElementById(`heroAgility`).innerHTML = userData.agility
 }
 
 document.getElementById(`back`).onclick = function () {
