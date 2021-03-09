@@ -12,7 +12,7 @@
 			<h1 type='text' id='title'>MAG-O RPG</h1>
 		</div>
 		
-		<div class="bodyPanel" style="overflow-x:auto;">
+		<div class="bodyPanel" style="overflow-x:hidden;height:60%;">
 
 			<div class="tabbed">
 				<input name="tabbed" id="tabbed1" type="radio" checked>
@@ -22,14 +22,14 @@
 						<label for="tabbed1">Log In</label>
 					</h1>
 					<div>
-						<table>
+						<table style="height: 100%;">
 							<tr>
-								<td>
+								<td style="padding-top: 10%;vertical-align: top;">  
 									<input type='text' id='login-name' placeholder='Name'></input>
 									
 									<input type='password' id='login-pass' placeholder='Password'></input>
 
-									<a id='passViewLogin' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;">show</a>
+									<a id='passViewLogin' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;font-size:300%;">show</a>
 			
 									<button id='play'>Play</button>
 					
@@ -46,14 +46,14 @@
 						<label for="tabbed2"> Register</label>
 					</h1>
 					<div>
-						<table>
+						<table style="height: 100%;">
 							<tr>
-								<td>
+								<td style="padding-top: 10%;vertical-align: top;">  
 									<input type='text' id='register-name' placeholder='Name'></input>
 
 									<input type='password' id='register-pass' placeholder='Password'></input>
 
-									<a id='passViewRegister' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;">show</a>
+									<a id='passViewRegister' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;font-size:300%;">show</a>
 									
 									<select id='class'>
 										<option>Pick your class</option>

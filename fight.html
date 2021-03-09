@@ -12,12 +12,12 @@
 			<h1 type='text' id='title'>MAG-O RPG</h1>
 		</div>
 
-		<div id="fight-details" class="bodyPanel" style="overflow-x:auto;">
+		<div class="bodyPanel" style="overflow-x:auto;height:25%;">
 
 			<table>
 				<tr>
 					<td>
-						<img id="heroImg-fight" src="assets/default.png" class="img-left" alt="10"></img>
+						<img id="heroImg-fight" src="assets/default.png" class="img-left"></img>
 						<span id="heroName-fight" class="label-right">Name</span></br>
 						<table style="width:66%;">
 							<tr>
@@ -29,11 +29,53 @@
 						</table>
 						<table style="width:66%;">
 							<tr>
+								<button id='action1' class="button-small">Hack</button>
 							</tr>
 							<tr>
+								<button id='action2' class="button-small">Punch</button>
+							</tr>
+							<tr>
+								<button id='action3' class="button-small">Coffee Splash</button>
 							</tr>
 						</table>
 					</td>
+				</tr>
+			</table>
+
+		</div>
+		
+		<div class="bodyPanel" style="overflow-x:auto;height:25%;">
+
+			<table style="height:100%;">
+				<tr>
+					<td>
+						<textarea id="combat" class="fight-panel" rows="8" cols="100" disabled></textarea>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<div id="continuePanel" class="bodyPanel" style="overflow-x:auto;visibility: hidden;">
+
+			<table>
+				<tr>
+					<td>
+					</td>
+					<td>
+						<button id='continue'>Continue</button>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+	</br></br></br></br>
+
+		<div class="bodyPanel" style="overflow-x:auto;height:25%;">
+
+			<table>
+				<tr>
 					<td>				
 						<img id="oppImg-fight" src="assets/default.png" class="img-right"></img>
 						<span id="oppName-fight" class="label-left">Name</span></br>
@@ -57,46 +99,14 @@
 									Strenght:
 								</td>
 								<td>
-									<span id="oppStrength-fight"></span>
+									<span id="oppStrength-fight" style="font-size: 3em;"></span>
 								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 			</table>
-
-		</div>
-		
-		<div id="fight-panel" class="bodyPanel" style="overflow-x:auto;">
-
-			<table>
-				<tr>
-					<td>
-						<button id='action1'>Hack</button>
-						<button id='action2'>Punch</button>
-						<button id='action3'>Coffee Splash</button>
-					</td>
-					<td>
-						<textarea id="combat" class="fight-panel" rows="8" cols="100" disabled></textarea>
-					</td>
-				</tr>
-			</table>
-
-		</div>
-
-		<div id="continuePanel" class="bodyPanel" style="overflow-x:auto;visibility: hidden;">
-
-			<table>
-				<tr>
-					<td>
-					</td>
-					<td>
-						<button id='continue'>Continue</button>
-					</td>
-				</tr>
-			</table>
-
-		</div>
+		</div>>
 
     </body>
 </html>

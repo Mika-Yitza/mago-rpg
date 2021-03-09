@@ -12,3 +12,8 @@ window.onload = function () {
         document.getElementById(`heroTalent`).innerHTML = sessionStorage.getItem('talent')
         document.getElementById(`heroAgility`).innerHTML = sessionStorage.getItem('agility')
 }
+
+document.getElementById(`back`).onclick = function () {
+
+        window.open("menu.html", "_self")
+}
