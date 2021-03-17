@@ -147,24 +147,51 @@ function fightValues(action) {
     return returnedItems
 }
 
-function fightLogic(fightLine1, fightLine2, fightLine3, fightLine4, stat, newOppValue, oppTotalValue, newHeroValue, heroTotalValue) {
+function fightLogic(action, fightLine1, fightLine2, fightLine3, fightLine4, stat, newOppValue, oppTotalValue, newHeroValue, heroTotalValue) {
 
-    document.getElementById(`combat`).innerHTML += '\n' + fightLine1 + '\n' + fightLine2
+    document.getElementById(`combat`).innerHTML += '\n' + fightLine1
+    document.getElementById(`combatText`).innerHTML = fightLine1
+    document.getElementById(`combatImg`).src = "assets/" + action + "/1.png"
+
+    setTimeout(function(){
+        document.getElementById(`combat`).innerHTML += '\n' + fightLine2
+        document.getElementById(`combatText`).innerHTML = fightLine2
+        document.getElementById(`combatImg`).src = "assets/" + action + "/2.png"
+    }, 2000)
+
 
     if (newOppValue < 1) {
-        victory(stat)
+        setTimeout(function(){
+            victory(stat)
+        }, 4000)
     }
     else {
-        document.getElementById(`combat`).innerHTML += '\n' + fightLine3 + '\n' + fightLine4
+        setTimeout(function(){
+            document.getElementById(`combat`).innerHTML += '\n' + fightLine3
+            document.getElementById(`combatText`).innerHTML = fightLine3
+            document.getElementById(`combatImg`).src = "assets/Opponent/1.png"
+        }, 4000)
+
+        setTimeout(function(){
+            document.getElementById(`combat`).innerHTML += '\n' + fightLine4
+            document.getElementById(`combatText`).innerHTML = fightLine4
+            document.getElementById(`combatImg`).src = "assets/Opponent/2.png"
+        }, 6000)
+
         if (newHeroValue < 1) {
-            gameOver(stat, newOppValue, oppTotalValue)
+            setTimeout(function(){
+                gameOver(stat, newOppValue, oppTotalValue)
+            }, 6000)
         }
         else {
-            gameOn(stat, newOppValue, oppTotalValue, newHeroValue, heroTotalValue)
+            setTimeout(function(){
+                gameOn(stat, newOppValue, oppTotalValue, newHeroValue, heroTotalValue)
+            }, 6000)
         }
     }
-    document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight
-    
+    setTimeout(function(){
+        document.getElementById("combat").scrollTop = document.getElementById("combat").scrollHeight
+    }, 6001)
 }
 
 window.onload = function () {
@@ -174,7 +201,7 @@ window.onload = function () {
     const charValues = dbHelp.getStoredValues()
 
     const randomOpp = Math.floor(Math.random() * opponents.length)
-    document.getElementById(`combat`).innerHTML = charValues.name + ' is ready to fight ' + opponents[randomOpp].name
+    document.getElementById(`combatText`).innerHTML = charValues.name + ' is ready to fight ' + opponents[randomOpp].name
 
     document.getElementById(`heroName-fight`).innerHTML = charValues.name
     document.getElementById(`oppName-fight`).innerHTML = opponents[randomOpp].name
@@ -193,6 +220,8 @@ window.onload = function () {
     document.getElementById(`oppHp`).style.width = "60%"
     document.getElementById(`continuePanel`).style.visibility = "hidden"
     isGameOver = false
+
+    document.getElementById(`combatImg`).src = "assets/ready.png"
 }
 
 for(let i=1; i<=3; i++){
@@ -203,7 +232,7 @@ for(let i=1; i<=3; i++){
         else {
             roundCount()
             const values = fightValues(document.getElementById(`action` + i).innerHTML)
-            fightLogic(values.fightLine1, values.fightLine2, values.fightLine3, values.fightLine4, values.stat, values.newOppValue, values.oppTotalValue, values.newCharValue, values.charHpTotal)
+            fightLogic(document.getElementById(`action` + i).innerHTML, values.fightLine1, values.fightLine2, values.fightLine3, values.fightLine4, values.stat, values.newOppValue, values.oppTotalValue, values.newCharValue, values.charHpTotal)
         }
     }
 }
