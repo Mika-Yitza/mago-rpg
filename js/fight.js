@@ -1,27 +1,13 @@
 import * as dbHelp from './db-helper.js'
+import {opponents} from '.././data/opponents.js'
+import {abilities} from '.././data/abilities.js'
 
 let appbaseRef
 let round
 let isGameOver
 let gameConclusion
 const gameOverMessage = 'This game has finished.'
-
-const opponents = [
-    {
-        name: 'Robot',
-        strength: 3,
-        firewall: 8,
-        health: 10,
-        img: 'robot.png'
-    },
-    {
-        name: 'A.I.',
-        strength: 2,
-        firewall: 10,
-        health: 8,
-        img: 'ai.png'
-    }
-]
+let opponent
 
 function roundCount() {
     document.getElementById(`combat`).innerHTML += '\n\n' + 'Round ' + round + '\n'
@@ -79,57 +65,23 @@ function newCharValue (attackBaseValue, oldCharValue, criticalChance){
 
 function fightValues(action) {
 
-    const charValues = dbHelp.getStoredValues()
-    const charCurrentHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
-    const oppName = document.getElementById(`oppName-fight`).innerHTML
-    const oppHp = parseInt(document.getElementById(`oppLabelHp`).innerHTML)
-    const oppFw = parseInt(document.getElementById(`oppLabelFw`).innerHTML)
-    const oppStrength = parseInt(document.getElementById(`oppStrength-fight`).innerHTML)
-    const oppFwTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[1])
-    const oppHpTotal = parseInt(document.getElementById(`oppImg-fight`).alt.split('&')[0])
+    let ability
 
-    let charBaseValue, oppValue, oppTotalValue, criticalChance, stat, line101, line102, line201
-    switch(action){
-        case 'Hack':{
-            charBaseValue = charValues.coding
-            oppValue = oppFw
-            oppTotalValue = oppFwTotal
-            criticalChance = 50
-            stat = 'Fw'
-            line101 = ' used his hacking skills to reduce '
-            line102 = '\’(s) firewall by '
-            line201 = ' - Remaining firewall : '
-            break
-        }
-        case 'Punch':{
-            charBaseValue = charValues.strength
-            oppValue = oppHp
-            oppTotalValue = oppHpTotal
-            criticalChance = 40
-            stat = 'Hp'
-            line101 = ' used his mighty punch to reduce '
-            line102 = '\’(s) health by '
-            line201 = ' - Remaining health : '
-            break
-        }
-        case 'Coffee Splash':{
-            charBaseValue = charValues.talent
-            oppValue = oppHp
-            oppTotalValue = oppHpTotal
-            criticalChance = 40
-            stat = 'Hp'
-            line101 = ' tossed a delicious coffee to burn the circuits and reduce '
-            line102 = '\’(s) health by '
-            line201 = ' - Remaining health : '
-            break
+    for(let usedAbility of abilities){
+        if(usedAbility.name == action){
+            ability = usedAbility
         }
     }
+
+    const charValues = dbHelp.getStoredValues()
+    const charCurrentHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
+    const oppCurrentValue = parseInt(document.getElementById(`oppLabel` + ability.stat).innerHTML)
     
-    const newOppValues = newCharValue(charBaseValue, oppValue, criticalChance)
-    const newHeroValues = newCharValue(oppStrength, charCurrentHp, 30)
-    const fightLine1 = charValues.name + line101 + oppName + line102 + newOppValues.dmgTaken + newOppValues.criticalText
-    const fightLine2 = oppName + line201 + newOppValues.newCharValue
-    const fightLine3 = oppName + ' attacked ' + charValues.name + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
+    const newOppValues = newCharValue(charValues[ability.charBaseValue], oppCurrentValue, ability.criticalChance)
+    const newHeroValues = newCharValue(opponent.strength, charCurrentHp, 30)
+    const fightLine1 = charValues.name + ability.line101 + opponent.name + '\’(s) ' + ability.statLong + ' by ' + newOppValues.dmgTaken + newOppValues.criticalText
+    const fightLine2 = opponent.name + ' - Remaining ' + ability.statLong + ' : ' + newOppValues.newCharValue
+    const fightLine3 = opponent.name + ' attacked ' + charValues.name + ' for ' + newHeroValues.dmgTaken + newHeroValues.criticalText
     const remainingHealth = newHeroValues.newCharValue > 0 ? newHeroValues.newCharValue : 0
     const fightLine4 = charValues.name + ' - Remaining health : ' + remainingHealth
 
@@ -137,8 +89,8 @@ function fightValues(action) {
         charHpTotal: charValues.health,
         newCharValue: newHeroValues.newCharValue,
         newOppValue: newOppValues.newCharValue,
-        oppTotalValue: oppTotalValue,
-        stat: stat,
+        oppTotalValue: opponent[ability.statLong],
+        stat: ability.stat,
         fightLine1: fightLine1,
         fightLine2: fightLine2,
         fightLine3: fightLine3,
@@ -147,16 +99,18 @@ function fightValues(action) {
     return returnedItems
 }
 
+function combatState(combatText, action, img){
+    document.getElementById(`combat`).innerHTML += '\n' + combatText
+    document.getElementById(`combatText`).innerHTML = combatText
+    document.getElementById(`combatImg`).src = "assets/" + action + "/" + img + ".png"
+}
+
 function fightLogic(action, fightLine1, fightLine2, fightLine3, fightLine4, stat, newOppValue, oppTotalValue, newHeroValue, heroTotalValue) {
 
-    document.getElementById(`combat`).innerHTML += '\n' + fightLine1
-    document.getElementById(`combatText`).innerHTML = fightLine1
-    document.getElementById(`combatImg`).src = "assets/" + action + "/1.png"
+    combatState(fightLine1, action, 1)
 
     setTimeout(function(){
-        document.getElementById(`combat`).innerHTML += '\n' + fightLine2
-        document.getElementById(`combatText`).innerHTML = fightLine2
-        document.getElementById(`combatImg`).src = "assets/" + action + "/2.png"
+        combatState(fightLine2, action, 2)
     }, 2000)
 
 
@@ -167,15 +121,11 @@ function fightLogic(action, fightLine1, fightLine2, fightLine3, fightLine4, stat
     }
     else {
         setTimeout(function(){
-            document.getElementById(`combat`).innerHTML += '\n' + fightLine3
-            document.getElementById(`combatText`).innerHTML = fightLine3
-            document.getElementById(`combatImg`).src = "assets/Opponent/1.png"
+            combatState(fightLine3, "Opponent", 1)
         }, 4000)
 
         setTimeout(function(){
-            document.getElementById(`combat`).innerHTML += '\n' + fightLine4
-            document.getElementById(`combatText`).innerHTML = fightLine4
-            document.getElementById(`combatImg`).src = "assets/Opponent/2.png"
+            combatState(fightLine4, "Opponent", 2)
         }, 6000)
 
         if (newHeroValue < 1) {
@@ -201,38 +151,35 @@ window.onload = function () {
     const charValues = dbHelp.getStoredValues()
 
     const randomOpp = Math.floor(Math.random() * opponents.length)
+    opponent = opponents[randomOpp]
     document.getElementById(`combatText`).innerHTML = charValues.name + ' is ready to fight ' + opponents[randomOpp].name
 
     document.getElementById(`heroName-fight`).innerHTML = charValues.name
-    document.getElementById(`oppName-fight`).innerHTML = opponents[randomOpp].name
-    document.getElementById(`heroImg-fight`).src = "assets/" + charValues.class + ".png"
-    document.getElementById(`oppImg-fight`).src = "assets/" + opponents[randomOpp].img
-
+    document.getElementById(`oppName-fight`).innerHTML = opponent.name
     document.getElementById(`heroLabelHp`).innerHTML = charValues.health
-
-    document.getElementById(`oppLabelHp`).innerHTML = opponents[randomOpp].health
-    document.getElementById(`oppLabelFw`).innerHTML = opponents[randomOpp].firewall
-    document.getElementById(`oppStrength-fight`).innerHTML = opponents[randomOpp].strength
-    document.getElementById(`oppImg-fight`).alt = opponents[randomOpp].health + "&" + opponents[randomOpp].firewall
-
+    document.getElementById(`oppLabelHp`).innerHTML = opponent.health
+    document.getElementById(`oppLabelFw`).innerHTML = opponent.firewall
+    document.getElementById(`oppStrength-fight`).innerHTML = opponent.strength
+    document.getElementById(`heroImg-fight`).src = "assets/" + charValues.class + ".png"
+    document.getElementById(`oppImg-fight`).src = "assets/" + opponent.img
+    document.getElementById(`combatImg`).src = "assets/ready.png"
     document.getElementById(`heroHp`).style.width = "60%"
     document.getElementById(`oppFw`).style.width = "60%"
     document.getElementById(`oppHp`).style.width = "60%"
     document.getElementById(`continuePanel`).style.visibility = "hidden"
     isGameOver = false
-
-    document.getElementById(`combatImg`).src = "assets/ready.png"
 }
 
 for(let i=1; i<=3; i++){
     document.getElementById(`action` + i).onclick = function () {
+        const action = document.getElementById(`action` + i).innerHTML
         if (isGameOver) {
             alert(gameOverMessage)
         }
         else {
             roundCount()
-            const values = fightValues(document.getElementById(`action` + i).innerHTML)
-            fightLogic(document.getElementById(`action` + i).innerHTML, values.fightLine1, values.fightLine2, values.fightLine3, values.fightLine4, values.stat, values.newOppValue, values.oppTotalValue, values.newCharValue, values.charHpTotal)
+            const values = fightValues(action)
+            fightLogic(action, values.fightLine1, values.fightLine2, values.fightLine3, values.fightLine4, values.stat, values.newOppValue, values.oppTotalValue, values.newCharValue, values.charHpTotal)
         }
     }
 }
