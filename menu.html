@@ -1,6 +1,5 @@
 <html>
     <head>
-		<script type="module" defer src="js/menu.js"></script>
 		<script defer src="https://unpkg.com/appbase-js/dist/appbase-js.umd.min.js"></script>
 		 <link rel="stylesheet" href="css/index.css">
 		 <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"/>
@@ -19,10 +18,10 @@
 			<table style="height: 60%;">
 				<tr>
 					<td>
-						<button class="button-mid" id='action1'>Fight</button>
-						<button class="button-mid" id='action2'>Character Stats</button>
+						<button class="button-mid" onclick="window.open('fight.html', '_self')" id='action1'>Fight</button>
+						<button class="button-mid" onclick="window.open('stats.html', '_self')" id='action2'>Character Stats</button>
 						<button class="button-mid" id='action3'>Abilities</button>
-						<button class="button-mid" id='action4'>Exit</button>
+						<button class="button-mid" onclick="window.open('/home.html', '_self')" id='action4'>Exit</button>
 					</td>
 				</tr>
 			</table>

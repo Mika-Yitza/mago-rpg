@@ -17,7 +17,7 @@ export function add(appbaseRef, char, id){
     .then(function() {
         sessionStorage.clear()
         sessionStorage.setItem('id', id)
-        window.open("menu.html", "_self")
+        window.open("loading.html", "_self")
     })
     .catch(function(error) {
         console.log(error)
@@ -66,7 +66,7 @@ export async function login(appbaseRef, name, password){
                 const heroId = response.hits.hits[0]._id
                 sessionStorage.clear()
                 sessionStorage.setItem('id', heroId)
-                window.open("menu.html", "_self")
+                window.open("loading.html", "_self")
             }
             else{
                 alert(`The password is incorrect.`)
