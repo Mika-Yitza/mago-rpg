@@ -73,6 +73,9 @@ document.getElementById(`continue`).onclick = function () {
         strength: userData.strength,
         talent: userData.talent,
         agility: userData.agility,
+        ability1: userData.ability1,
+        ability2: userData.ability2,
+        ability3: userData.ability3,
         level: userData.level,
         xp: userData.xp
     }

@@ -40,6 +40,9 @@ window.onload = function () {
     document.getElementById(`oppFw`).style.width = "60%"
     document.getElementById(`oppHp`).style.width = "60%"
     document.getElementById(`continuePanel`).style.visibility = "hidden"
+    document.getElementById(`action1`).innerHTML = charValues.ability1
+    document.getElementById(`action2`).innerHTML = charValues.ability2
+    document.getElementById(`action3`).innerHTML = charValues.ability3
 }
 
 document.getElementById(`continue`).onclick = function () {
@@ -58,6 +61,9 @@ document.getElementById(`continue`).onclick = function () {
             strength: charValues.strength,
             talent: charValues.talent,
             agility: charValues.agility,
+            ability1: charValues.ability1,
+            ability2: charValues.ability2,
+            ability3: charValues.ability3,
             level: charValues.level,
             xp: (charValues.xp + xpIncrease)
         }

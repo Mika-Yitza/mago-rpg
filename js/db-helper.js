@@ -98,6 +98,9 @@ export async function search(appbaseRef, id){
         sessionStorage.setItem('strength', heroData.strength)
         sessionStorage.setItem('talent', heroData.talent)
         sessionStorage.setItem('agility', heroData.agility)
+        sessionStorage.setItem('ability1', heroData.ability1)
+        sessionStorage.setItem('ability2', heroData.ability2)
+        sessionStorage.setItem('ability3', heroData.ability3)
         sessionStorage.setItem('level', heroData.level)
         sessionStorage.setItem('xp', heroData.xp)
         sessionStorage.setItem('password', heroData.password)
@@ -109,6 +112,9 @@ export async function search(appbaseRef, id){
 
 export function getStoredValues() {
     const returnedItems={
+        ability1: sessionStorage.getItem('ability1'),
+        ability2: sessionStorage.getItem('ability2'),
+        ability3: sessionStorage.getItem('ability3'),
         agility: parseInt(sessionStorage.getItem('agility')),
         class: sessionStorage.getItem('class'),
         coding: parseInt(sessionStorage.getItem('coding')),

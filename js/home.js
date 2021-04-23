@@ -71,6 +71,9 @@ document.getElementById(`create`).onclick = function() {
                             strength: stats.strength,
                             talent: stats.talent,
                             agility: 0,
+                            ability1: 'Hack',
+                            ability2: 'Punch',
+                            ability3: 'Coffee Splash',
                             level: 1,
                             xp: 0
                         }
