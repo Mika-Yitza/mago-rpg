@@ -1,6 +1,6 @@
 <html>
     <head>
-		<script type="module" defer src="js/home.js"></script>
+		<script type="module" defer src="js/register.js"></script>
 		<script defer src="https://unpkg.com/appbase-js/dist/appbase-js.umd.min.js"></script>
 		 <link rel="stylesheet" href="css/index.css">
 		 <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico"/>
@@ -13,26 +13,30 @@
 		</div>
 		
 		<div class="bodyPanel" style="overflow-x:hidden;height:60%;">
+
 			<table>
 				<tr>
 					<td style="padding-top: 10%;vertical-align: top;">  
-						<input type='text' id='login-name' placeholder='Name'></input>
+						<input type='text' id='register-name' placeholder='Name'></input>
+
+						<input type='password' id='register-pass' placeholder='Password'></input>
+
+						<a id='passViewRegister' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;font-size:300%;">show</a>
 						
-						<input type='password' id='login-pass' placeholder='Password'></input>
+						<select id='class'>
+							<option>Pick your class</option>
+						</select>
 
-						<a id='passViewLogin' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;font-size:300%;">show</a>
-
-						<button id='play'>Play</button>
+						<button id='create'>Create Character</button>
 		
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<button onclick="window.open('register.html', '_self')">Register</button>
+						<button onclick="window.open('home.html', '_self')">Login</button>
 					</td>
 				</tr>
 			</table>
-
 		</div>
     </body>
 </html>
