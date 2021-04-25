@@ -31,22 +31,8 @@ window.onload = function () {
 for(let i=1; i<=actions; i++){
         document.getElementById(`action${i}`).onclick = function () {
                 const id = window.location.href.split('=')[1]
-                const newData = {
-                        name: userData.name,
-                        password: userData.password,
-                        class: userData.class,
-                        health: userData.health,
-                        coding: userData.coding,
-                        strength: userData.strength,
-                        talent: userData.talent,
-                        agility: userData.agility,
-                        ability1: userData.ability1,
-                        ability2: userData.ability2,
-                        ability3: userData.ability3,
-                        level: userData.level,
-                        xp: userData.xp
-                }
-                newData[`ability${id}`] = document.getElementById(`action${i}`).innerHTML
+                userData[`ability${id}`] = document.getElementById(`action${i}`).innerHTML
+                const newData = dbHelp.setNewValues(userData)
                 dbHelp.add(appbaseRef, newData, userData.id)
         }
 }

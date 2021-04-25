@@ -129,3 +129,23 @@ export function getStoredValues() {
     }
     return returnedItems
 }
+
+export function setNewValues(oldValues) {
+
+    const newValues = {
+        name: oldValues.name,
+        password: oldValues.password,
+        class: oldValues.class,
+        health: oldValues.health,
+        coding: oldValues.coding,
+        strength: oldValues.strength,
+        talent: oldValues.talent,
+        agility: oldValues.agility,
+        ability1: oldValues.ability1,
+        ability2: oldValues.ability2,
+        ability3: oldValues.ability3,
+        level: oldValues.level,
+        xp: oldValues.xp
+}
+    return newValues
+}

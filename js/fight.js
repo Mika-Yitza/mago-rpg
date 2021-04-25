@@ -52,21 +52,8 @@ document.getElementById(`continue`).onclick = function () {
         window.open("upgrade.html", "_self")
     }
     else{
-        const userData = {
-            name: charValues.name,
-            password: charValues.password,
-            class: charValues.class,
-            health: charValues.health,
-            coding: charValues.coding,
-            strength: charValues.strength,
-            talent: charValues.talent,
-            agility: charValues.agility,
-            ability1: charValues.ability1,
-            ability2: charValues.ability2,
-            ability3: charValues.ability3,
-            level: charValues.level,
-            xp: (charValues.xp + xpIncrease)
-        }
+        charValues.xp += xpIncrease
+        const userData = dbHelp.setNewValues(charValues)
         dbHelp.add(appbaseRef, userData, charValues.id)
     }
 }
