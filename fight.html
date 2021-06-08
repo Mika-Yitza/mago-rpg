@@ -8,122 +8,84 @@
 
     <body>
 
-		<div class="header">
-			<h1 type='text' id='title'>MAG-O RPG</h1>
+		<div class="container">
+			<div class="header_big">
+				<h1 type='text'>MAG-O RPG</h1>
+			</div>
+			
+			<div class="body_medium2">
+
+				<div class="body_item2">
+					<img id="heroImg-fight" src="assets/default.png" class="char_icon"></img>
+				</div>
+
+				<div class="body_item" style="padding-top:0;">
+					<span id="heroName-fight" class="text">Name</span></br>
+
+					<img id="heroHp" src="assets/red.png" class="stat_bar"></img>
+					<label id="heroLabelHp" for="heroHp" class="text">10</label>
+
+
+					<button id='action1' class="action_button" style="width:100%"></button>
+
+					<button id='action2' class="action_button" style="width:100%"></button>
+
+					<button id='action3' class="action_button" style="width:100%"></button>
+				</div>
+
+			</div>
+
+			<div class="body_medium">
+
+				<div class="body_item" style="text-align:center;padding-left:0%;padding-top:2%;">
+					<img id="combatImg" src="assets/gray.png" class="fight_img"></img>
+					<textarea id="combatText" rows="3" cols="40" disabled class="text_area"></textarea>
+				</div>
+			</div>
+
+			<div class="body_small">
+				<div id="continuePanel" style="text-align:right;">
+					<button id='continue' class="action_button" style="width:30%;">Continue</button>
+				</div>		
+			</div>
+
+			<div class="body_medium2">
+
+				<div class="body_item" style="padding-top:0;padding-left:5%;">
+					<span id="oppName-fight" class="text">Name</span><br>
+
+					<img id="oppHp" src="assets/red.png" class="stat_bar"></img>
+					<label id="oppLabelHp" for="oppHp" class="text">10</label></br>
+
+					<img id="oppFw" src="assets/black.png" class="stat_bar"></img>
+					<label id="oppLabelFw" for="oppFw" class="text">10</label>
+
+					<table class="text">
+						<tr>
+							<td>
+								Strenght:
+							</td>
+							<td>
+								<span id="oppStrength-fight"></span>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="body_item2">
+					<img id="oppImg-fight" src="assets/default.png" class="char_icon"></img>
+				</div>
+
+			</div>
+
+			
+			<div class="body_small">
+				<textarea id="combat" rows="8" cols="40" disabled class="text_area"></textarea>
+			</div>
+
+			<div class="footer">
+				<span>MAGO Training Tool</span>
+			</div>
 		</div>
-
-		<div class="bodyPanel" style="overflow-x:auto;height:25%;">
-
-			<table>
-				<tr>
-					<td>
-						<img id="heroImg-fight" src="assets/default.png" class="img-left"></img>
-						<span id="heroName-fight" class="label-right">Name</span></br>
-						<table style="width:66%;">
-							<tr>
-								<td style="width:100%;">
-									<hr id="heroHp" class="hp-right"></hr>
-									<label id="heroLabelHp" for="heroHp" class="labelHp-right">10</label>
-								</td>
-							</tr>
-						</table>
-						<table style="width:66%;">
-							<tr>
-								<button id='action1' class="button-small"></button>
-							</tr>
-							<tr>
-								<button id='action2' class="button-small"></button>
-							</tr>
-							<tr>
-								<button id='action3' class="button-small"></button>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-
-		</div>
-		
-		<div class="bodyPanel" style="overflow-x:auto;height:35%;">
-
-			<table style="height:100%;">
-				<tr style="height:60%;">
-					<td>
-						<img id="combatImg" src="assets/gray.png" class="img-centre" style="height:100%;"></img>
-					</td>
-				</tr>
-				<tr style="height:20%;">
-					<td>
-						<textarea id="combatText" class="fight-panel" rows="2" cols="100" disabled></textarea>
-					</td>
-				</tr>
-			</table>
-
-		</div>
-
-		<div id="continuePanel" class="bodyPanel" style="overflow-x:auto;visibility: hidden;">
-
-			<table>
-				<tr>
-					<td>
-					</td>
-					<td>
-						<button id='continue'>Continue</button>
-					</td>
-				</tr>
-			</table>
-
-		</div>
-
-	</br></br></br></br>
-
-		<div class="bodyPanel" style="overflow-x:auto;height:25%;">
-
-			<table>
-				<tr>
-					<td>				
-						<img id="oppImg-fight" src="assets/default.png" class="img-right"></img>
-						<span id="oppName-fight" class="label-left">Name</span></br>
-						<table style="width:66%;">
-							<tr>
-								<td style="width:100%;">
-									<hr id="oppHp" class="hp-left"></hr>
-									<label id="oppLabelHp" for="oppHp" class="labelHp-left">10</label>
-								</td>
-							</tr>
-							<tr>
-								<td style="width:100%;">
-									<hr id="oppFw" class="firewall-left"></hr>
-									<label id="oppLabelFw" for="oppFw" class="labelFw-left">10</label>
-								</td>
-							</tr>
-						</table>
-						<table style="width:66%;">
-							<tr>
-								<td class="label-right">
-									Strenght:
-								</td>
-								<td>
-									<span id="oppStrength-fight" style="font-size: 3em;"></span>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-		</div>>
-
-		<div class="bodyPanel" style="overflow-x:auto;height:25%;">
-
-			<table style="height:100%;">
-				<tr>
-					<td>
-						<textarea id="combat" class="fight-panel" rows="8" cols="100" disabled></textarea>
-					</td>
-				</tr>
-			</table>
-
-		</div>
-
     </body>
 </html>

@@ -13,8 +13,8 @@ function combatState(combatText, action, img){
 function combatValues(stat, heroNewValue, oppNewValue, oppTotal){
     document.getElementById(`heroLabelHp`).innerHTML = heroNewValue
     document.getElementById(`oppLabel` + stat).innerHTML = oppNewValue
-    document.getElementById(`heroHp`).style.width = (heroNewValue / charValues.health * 60) + "%"
-    document.getElementById(`opp` + stat).style.width = (oppNewValue / oppTotal * 60) + "%"
+    document.getElementById(`heroHp`).style.width = (heroNewValue / charValues.health * 200) + "px"
+    document.getElementById(`opp` + stat).style.width = (oppNewValue / oppTotal * 200) + "px"
 }
 
 window.onload = function () {
@@ -36,9 +36,9 @@ window.onload = function () {
     document.getElementById(`heroImg-fight`).src = "assets/" + charValues.class + ".png"
     document.getElementById(`oppImg-fight`).src = "assets/" + opponent.img
     document.getElementById(`combatImg`).src = "assets/ready.png"
-    document.getElementById(`heroHp`).style.width = "60%"
-    document.getElementById(`oppFw`).style.width = "60%"
-    document.getElementById(`oppHp`).style.width = "60%"
+    document.getElementById(`heroHp`).style.width = "200px"
+    document.getElementById(`oppFw`).style.width = "200px"
+    document.getElementById(`oppHp`).style.width = "200px"
     document.getElementById(`continuePanel`).style.visibility = "hidden"
     document.getElementById(`action1`).innerHTML = charValues.ability1
     document.getElementById(`action2`).innerHTML = charValues.ability2

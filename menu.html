@@ -8,125 +8,123 @@
 
     <body>
 
-		<div class="header">
-			<h1 type='text' id='title'>MAG-O RPG</h1>
+		<div class="header_big">
+			<h1 type='text'>MAG-O RPG</h1>
 		</div>
 
-		<div class="bodyPanel" style="overflow-x:auto">
+		<div class="body_small">
+			<img id="classIcon" style="height:20%;"></img>
+		</div>
 
-			<img src="assets/Airport.png" class="img-centre"></img>
+		<div class="body_medium2">
 
-			<table>
-				<tr>
-					<td >
-						<span id="heroName-fight" class="label-right">Name</span></br>
-					</td>
-				</tr>
-				<tr>
-					<td class="label-right">
-						Level:
-					</td>
-					<td>
-						<span id="heroLevel" style="font-size: 3em;"></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="label-right">
-						Xp:
-					</td>
-					<td>
-						<span id="heroXp" style="font-size: 3em;"></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="label-right">
-						Health:
-					</td>
-					<td>
-						<span id="heroHealth" style="font-size: 3em;"></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="label-right">
-						Coding:
-					</td>
-					<td>
-						<span id="heroCoding" style="font-size: 3em;"></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="label-right">
-						Strenght:
-					</td>
-					<td>
-						<span id="heroStrength" style="font-size: 3em;"></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="label-right">
-						Talent:
-					</td>
-					<td>
-						<span id="heroTalent" style="font-size: 3em;"></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="label-right">
-						Agility:
-					</td>
-					<td>
-						<span id="heroAgility" style="font-size: 3em;"></span>
-					</td>
-				</tr>
-			</table>
-		</br></br>
+			<div class="body_item">
+				<table style="font-size: 150%;">
+					<tr>
+						<td >
+							<span id="heroName-fight">Name</span></br>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Level:
+						</td>
+						<td>
+							<span id="heroLevel"></span>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Xp:
+						</td>
+						<td>
+							<span id="heroXp"></span>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Health:
+						</td>
+						<td>
+							<span id="heroHealth"></span>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Coding:
+						</td>
+						<td>
+							<span id="heroCoding"></span>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Strenght:
+						</td>
+						<td>
+							<span id="heroStrength"></span>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Talent:
+						</td>
+						<td>
+							<span id="heroTalent"></span>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Agility:
+						</td>
+						<td>
+							<span id="heroAgility"></span>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-			<table>
-				<tr>
-				</tr>
-					<td >
-						<span style="font-size: 3em;">Abilities:</span>
-					</td>
-				<tr>
-					<td >
-						<button id='action1' onclick="window.open('ability.html?id=1', '_self')" class="button-mid" style="height: 3em;"></button>
-					</td>
+			<div class="body_item">
+				<table style="font-size: 100%;">
+					<tr>
+						<td >
+							<span>Abilities:</span>
+						</td>
+					</tr>
+	
+					<tr>
+						<td >
+							<button id='action1' onclick="window.open('ability.html?id=1', '_self')"></button>
 
-					<td >
-						<button id='action2' onclick="window.open('ability.html?id=2', '_self')" class="button-mid" style="height: 3em;"></button>
-					</td>
+							<button id='action2' onclick="window.open('ability.html?id=2', '_self')"></button>
 
-					<td >
-						<button id='action3' onclick="window.open('ability.html?id=3', '_self')" class="button-mid" style="height: 3em;"></button>
-					</td>
-				</tr>
-				</tr>
-			</table>
+							<button id='action3' onclick="window.open('ability.html?id=3', '_self')"></button>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-		</br></br></br>
+		</div>
 
-			<table>
-				<tr>
-					<td >
-						<button class="button-mid" style="height: 3em;">Story Mode</button>
-					</td>
-				</tr>
-			</table>
+		<div class="body_medium">
 
-			<table>
-				<tr>
-					<button class="button-mid" style="height: 3em;" onclick="window.open('fight.html', '_self')">Fight</button>
-				</tr>
-			</table>
+			<div class="body_item">
+				<button>Story Mode</button>
+			</div>
 
-			<table>
-				<tr>
-					<td >
-						<button onclick="window.open('/home.html', '_self')" class="button-mid" style="height: 3em;">Log Out</button>
-					</td>
-				</tr>
-			</table>
+			<div class="body_item">
+				<button onclick="window.open('fight.html', '_self')">Fight</button>
+			</div>
 
+			<div class="body_item">
+				<button onclick="window.open('/home.html', '_self')">Log Out</button>
+			</div>
+
+		</div>
+
+		
+		<div class="footer">
+			<span>MAGO Training Tool</span>
 		</div>
 
     </body>

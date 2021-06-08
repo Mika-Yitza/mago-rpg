@@ -8,34 +8,32 @@
 
     <body>
 
-		<div class="header">
-			<h1 type='text' id='title'>MAG-O RPG</h1>
-		</div>
+		<div class="container">
+			<div class="header_big">
+				<h1 type='text'>MAG-O RPG</h1>
+			</div>
+			
+			<div class="body_medium">
 
+				<div class="body_item" style="text-align:center;padding-left:0%;padding-top:2%;">
+					<img src="assets/lvlup.png" class="fight_img"></img>
+				</div>
 
-		<div id="continuePanel" class="bodyPanel" style="overflow-x:auto;">
-			<img src="assets/lvlup.png" class="img-centre"></img>
-			<textarea id="lvlup" class="fight-panel" rows="4" cols="100" style="height: 30%;font-size: 200%" disabled></textarea>
+				<div class="body_item" style="text-align:center;padding-left:0%;padding-top:2%;">
+					<textarea id="lvlup" rows="10" cols="40" disabled class="text_area"></textarea>
+				</div>
 
-		</br></br>
-			<table>
-				<tr>
-					<td>
-						<button id='action1' style="height: 5rem;width: 100%;"></button>
-					</td>
-					<td>
-						<button id='continue' style="height: 5rem;visibility:hidden;">Continue</button>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<button id='action2' style="height: 5rem;width: 100%"></button>
-					</td>
-					<td>
-					</td>
-				</tr>
-			</table>
+				<div class="body_item" style="text-align:center;padding-left:0%;padding-top:2%;">
+					<button id='action1' class="action_button"></button>
+					<button id='action2' class="action_button"></button>
+					<button id='continue' class="action_button" style="visibility:hidden;">Continue</button>		
+				</div>
 
+			</div>
+
+			<div class="footer">
+				<span>MAGO Training Tool</span>
+			</div>
 		</div>
 
     </body>

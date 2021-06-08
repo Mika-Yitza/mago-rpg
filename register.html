@@ -7,36 +7,43 @@
     </head>
 
     <body>
+		<div class="container">
 
-		<div class="header">
-			<h1 type='text' id='title'>MAG-O RPG</h1>
-		</div>
-		
-		<div class="bodyPanel" style="overflow-x:hidden;height:60%;">
+			<div class="header_big">
+				<h1 type='text'>MAG-O RPG</h1>
+				<img src="assets/mago_logo.png" style="height:70%;"></img>
+			</div>
+			
+			<div class="body_medium">
 
-			<table>
-				<tr>
-					<td style="padding-top: 10%;vertical-align: top;">  
-						<input type='text' id='register-name' placeholder='Name'></input>
+				<div class="body_item">
+					<input type='text' id='register-name' placeholder='Name'></input>
+				</div>
 
-						<input type='password' id='register-pass' placeholder='Password'></input>
+				<div class="body_item">
+					<input type='password' id='register-pass' placeholder='Password'></input>
+					<a id='passViewRegister'>show</a>
+				</div>
 
-						<a id='passViewRegister' style="color:rgba(230, 243, 108, 0.7); text-decoration: underline;font-size:300%;">show</a>
-						
-						<select id='class'>
-							<option>Pick your class</option>
-						</select>
+				<div class="body_item">
+					<select id='class'>
+						<option>Pick your class</option>
+					</select>
+				</div>
 
-						<button id='create'>Create Character</button>
-		
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<button onclick="window.open('home.html', '_self')">Login</button>
-					</td>
-				</tr>
-			</table>
+				<div class="body_item">
+					<button id='create'>Create Character</button>
+				</div>
+
+				<div class="body_item">
+					<button onclick="window.open('home.html', '_self')">Login</button>
+				</div>
+
+			</div>
+
+			<div class="footer">
+				<span>MAGO Training Tool</span>
+			</div>
 		</div>
     </body>
 </html>

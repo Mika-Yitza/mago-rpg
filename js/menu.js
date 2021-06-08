@@ -4,6 +4,7 @@ window.onload = function () {
 
         let userData = dbHelp.getStoredValues()
 
+        document.getElementById(`classIcon`).src = "assets/" + userData.class + ".png"
         document.getElementById(`heroName-fight`).innerHTML = userData.name
         document.getElementById(`heroLevel`).innerHTML = userData.level
         document.getElementById(`heroXp`).innerHTML = userData.xp
