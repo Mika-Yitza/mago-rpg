@@ -8,6 +8,9 @@ export const abilities = [
         stat: 'Fw',
         statLong: 'firewall',
         charBaseValue: 'coding',
+        strengthMultiplier: 0,
+        codingMultiplier: 1,
+        talentMultiplier: 0,
         criticalChance: 50,
         line101: ' used his hacking skills to reduce '
     },
@@ -20,6 +23,9 @@ export const abilities = [
         stat: 'Hp',
         statLong: 'health',
         charBaseValue: 'strength',
+        strengthMultiplier: 1,
+        codingMultiplier: 0,
+        talentMultiplier: 0,
         criticalChance: 40,
         line101: ' used his mighty punch to reduce '
     },
@@ -32,6 +38,9 @@ export const abilities = [
         stat: 'Hp',
         statLong: 'health',
         charBaseValue: 'talent',
+        strengthMultiplier: 0,
+        codingMultiplier: 0,
+        talentMultiplier: 1,
         criticalChance: 40,
         line101: ' tossed a delicious coffee to burn the circuits and reduce '
     },
@@ -44,6 +53,9 @@ export const abilities = [
         stat: 'Fw',
         statLong: 'firewall',
         charBaseValue: 'coding',
+        strengthMultiplier: 0,
+        codingMultiplier: 1.5,
+        talentMultiplier: 0,
         criticalChance: 50,
         line101: ' inserted random code to reduce '
     },
@@ -56,6 +68,9 @@ export const abilities = [
         stat: 'Hp',
         statLong: 'health',
         charBaseValue: 'strength',
+        strengthMultiplier: 1.5,
+        codingMultiplier: 0,
+        talentMultiplier: 0,
         criticalChance: 40,
         line101: ' kicked like Van Damme to drop '
     },
@@ -68,6 +83,9 @@ export const abilities = [
         stat: 'Fw',
         statLong: 'firewall',
         charBaseValue: 'talent',
+        strengthMultiplier: 0,
+        codingMultiplier: 0,
+        talentMultiplier: 1.5,
         criticalChance: 40,
         line101: ' used his irresistible charm to decrease '
     },
@@ -80,6 +98,9 @@ export const abilities = [
         stat: 'Fw',
         statLong: 'firewall',
         charBaseValue: 'coding',
+        strengthMultiplier: 0,
+        codingMultiplier: 2,
+        talentMultiplier: 0,
         criticalChance: 50,
         line101: ' used his backend knowledge to affect '
     },
@@ -92,6 +113,9 @@ export const abilities = [
         stat: 'Hp',
         statLong: 'health',
         charBaseValue: 'strength',
+        strengthMultiplier: 1,
+        codingMultiplier: 0,
+        talentMultiplier: 1,
         criticalChance: 40,
         line101: ' slapped into next week and reduced '
     },
@@ -104,6 +128,9 @@ export const abilities = [
         stat: 'Fw',
         statLong: 'firewall',
         charBaseValue: 'coding',
+        strengthMultiplier: 0,
+        codingMultiplier: 1,
+        talentMultiplier: 1,
         criticalChance: 50,
         line101: ' gave way for trolls and haters to shrink '
     },
@@ -116,6 +143,9 @@ export const abilities = [
         stat: 'Hp',
         statLong: 'health',
         charBaseValue: 'strength',
+        strengthMultiplier: 2,
+        codingMultiplier: 0,
+        talentMultiplier: 0,
         criticalChance: 40,
         line101: ' charged into an insane tackle to reduce '
     }
