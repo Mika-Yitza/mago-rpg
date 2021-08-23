@@ -77,24 +77,26 @@ for(let i=1; i<=3; i++){
         const charCurrentHp = parseInt(document.getElementById(`heroLabelHp`).innerHTML)
         const oppCurrentValue = parseInt(document.getElementById(`oppLabel` + ability.stat).innerHTML)
 
+        const baseDmgDone = (charValues.coding * ability.codingMultiplier) + (charValues.strength * ability.strengthMultiplier)
+                            + (charValues.talent * ability.talentMultiplier)
         const heroDmgDone = (Math.random() * 100) > ability.criticalChance ? 
                     {
-                        value: charValues[ability.charBaseValue],
+                        value: Math.floor(baseDmgDone),
                         criticalText: ""
                     } :
                     {
-                        value: charValues[ability.charBaseValue] + charValues.agility + 1,
+                        value: Math.floor(baseDmgDone) + charValues.agility,
                         criticalText:" (CH)"
                     }
                     
-        const oppDmgDone = (Math.random() * 100) > 30 ? 
+        const oppDmgDone = (Math.random() * 100) > opponent.overdriveChance ? 
                     {
                         value: opponent.strength,
                         criticalText: ""
                     } :
                     {
-                        value: opponent.strength + 1,
-                        criticalText:" (CH)"
+                        value: opponent.overdrive,
+                        criticalText:" (OD)"
                     }
 
         const fightLine1 = charValues.name + ability.line101 + opponent.name + '\’(s) ' + ability.statLong + ' by ' + heroDmgDone.value + heroDmgDone.criticalText
